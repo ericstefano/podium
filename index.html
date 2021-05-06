@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Podium</title>
+    <link rel="stylesheet" href="estilos.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+   
+</head>
+
+<body>
+    <section class="row header_area">
+
+        <section class="grid_header">
+
+            <div class="header">
+                <!-- Top Navigation Menu -->
+                <div class="topnav">
+                    <a href="#home" class="active" id="header-menu"><img class="logo" src="img/logo.png" alt="logo"></a>
+                    <!-- Navigation links (hidden by default) -->
+                    <div id="myLinks">
+                        <a href="#news">Página Inicial</a>
+                        <a href="#contact">Quem Somos</a>
+                        <a href="#about">Contato</a>
+                    </div>
+                    <!-- "Hamburger menu" / "Bar icon" to toggle the navigation links -->
+                    <a href="javascript:void(0);" class="icon" id="menu-hamburguer" onclick="myFunction()">
+                        <i class="fa fa-bars"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </section>
+
+    <section class="row">
+
+        <div class="main">
+
+            <section class="row geral">
+
+                <h1>PODIUM</h1>
+                <p>Descubra os melhores podcasts pertinho de você!</p>
+
+                <button class="button">Testar</button>
+                <button class="button">Já tenho cadastro</button>
+            </section>
+
+            <hr>
+
+            <section class="row motivos">
+
+                <h1>Por que usar o Podium?</h1>
+
+                <button class="button">Solução 1</button>
+                <button class="button">Solução 2</button>
+                <button class="button">Solução 3</button>
+                <button class="button">Solução 4</button>
+            </section>
+
+            <hr>
+
+            <section class="row mapa">
+
+                <h1>MAPA INTERATIVO</h1>
+            </section>
+        </div>
+    </section>
+
+    <section id="depoimentos">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 depoimentosDiv">
+                    <h2 class="chamadaDaPagina">Depoimentos</h2>
+                    <div class="depoimentoContainer">
+                        <div class="depoimentoContainerTop">
+                            <div class="usuarioFoto" id="marcosAugustoPhoto"></div>
+                            <div class="nomeProfissaoAvaliacao">
+                                <p class="nomeUsuario">Marcos Augusto</p>
+                                <p class="profissaoUsuario">Professor de Ed Física</p>
+                                <div class="avaliacaoEstrelas">
+                                    <p class=avaliacao id="paragraph-avaliacao">Avaliação: </p>
+                                    <div class="estrelas">
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div class="depoimentoContainerBottom">
+                            <p id="pAvaliacaoBottom">“Através do Podium consegui encontrar vários podcasts sobre esportes e
+                                viagem que
+                                ajudam
+                                preencher com mais alegria os meus dias.”
+                            </p>
+                        </div>
+    
+                    </div>
+    
+    
+                </div>
+            </div>
+        </div>
+    
+    </section>
+    
+    <footer>
+        <div class="container" id="footer-container">
+            <div class="row" id="row-footer">
+                <div class="col-1 logoFooter"></div>
+                <div class="col-11 copyright">
+                    <p id="pFooter">
+                        Copyright &#169 Podium - 2021
+                    </p>
+                </div>
+    
+            </div>
+        </div>
+    </footer>   
+
+
+    <script>
+        function myFunction() {
+            var x = document.getElementById("myLinks");
+            if (x.style.display === "block") {
+                x.style.display = "none";
+            } else {
+                x.style.display = "block";
+            }
+        }
+    </script>
+</body>
+
+</html>
