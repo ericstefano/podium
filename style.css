@@ -1,0 +1,174 @@
+* {
+    box-sizing: border-box;
+    max-width: 100%;
+    margin: 0;
+    padding: 0px;
+    font-family: monospace;
+    font-size: 1rem;
+    /* color: #24fcf4; */
+}
+
+.logo {
+    width: 50px;
+}
+
+.header {
+    width: 100%;
+    background-image: linear-gradient( to right, rgba(11, 183, 226, 0), rgb(255, 255, 255));
+    /* #24fcf4 */
+}
+
+#testarCadastrar {
+    background-image: url("./img/imagem1.jpg");
+    background-color: white;
+    height: 1000px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    align-items: center;
+    text-align: justify;
+    padding: 20px;
+}
+
+#solucoes {
+    background-image: url("./img/imagem2.jpg");
+    background-color: white;
+    height: 1000px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+#solucoesDiv, #testarCadastrar {
+    display: flex;
+    align-items: center;
+    text-align: justify;
+    flex-direction: column;
+}
+
+.btn {
+    margin-bottom: 20px;
+}
+
+#mapa {
+    background-image: url("./img/mapa.jpg");
+    background-color: white;
+    height: 1000px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    text-align: center;
+}
+
+#depoimentos {
+    background-image: url(./img/gene-jeter-kcV7BxcVtU4-unsplash.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: 50% 50%;
+    color: white;
+    height: 1000px;
+}
+
+#marcosAugustoPhoto {
+    background-image: url(./img/marcos-augusto.jpg);
+}
+
+.depoimentosDiv, #depoimentosDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.chamadaDaPagina {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    max-width: 350px;
+}
+
+.depoimentoContainer {
+    background-color: #00ffdf;
+    max-width: 75%;
+    padding-bottom: 10px;
+    margin-bottom: 50px;
+}
+
+.depoimentoContainerTop {
+    display: flex;
+    padding-top: 15px;
+    margin-left: 30px;
+    margin-bottom: 15px;
+}
+
+.nomeProfissaoAvaliacao>p, .depoimentoContainerBottom>p {
+    margin-bottom: 5px;
+    text-align: left;
+    font-size: 18px;
+}
+
+.usuarioFoto {
+    width: 90px;
+    height: 84px;
+    border-radius: 50%;
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+
+.nomeProfissaoAvaliacao {
+    margin-left: 20px;
+    font-weight: bold;
+}
+
+#paragraph-avaliacao {
+    font-size: 18px;
+}
+
+.avaliacaoEstrelas {
+    display: flex;
+}
+
+.estrelas {
+    margin-top: 2px;
+    margin-left: 10px;
+    color: gold;
+    font-size: 18px;
+}
+
+.depoimentoContainerBottom {
+    background-color: white;
+    margin: 0px 30px 15px 30px;
+    padding: 10px 20px 5px 20px;
+    color: black;
+}
+
+#pAvaliacaoBottom {
+    text-shadow: none;
+    color: black;
+}
+
+footer {
+    background-color: #00FFDF;
+}
+
+#footer-container {
+    margin-left: 15px;
+}
+
+.logoFooter {
+    background-image: url(./imagens/logo.jpeg);
+    background-size: cover;
+    background-size: 45px 45px;
+    background-repeat: no-repeat;
+}
+
+.copyright {
+    display: flex;
+    align-items: center;
+}
+
+.copyright>p {
+    padding-top: 10px;
+}
