@@ -1,0 +1,68 @@
+.navbar {
+    padding-top: 0;
+    padding-bottom: 0;
+    background: linear-gradient(
+        270deg,
+        #00D1D5 19.27%,
+        rgba(0, 228, 215, 0.84) 42.19%,
+        #00F4DB 58.33%,
+        #00F9DD 72.92%,
+        #00FFDF 78.64%,
+        #00FCDE 87.88%,
+        rgba(0, 236, 217, 0.917419) 94.16%,
+        rgba(0, 217, 214, 0.934545) 100%);
+}
+
+.navbar-brand {
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-right: 0;
+}
+
+.navbar-logo {
+    width: 48px;
+    height: 48px;
+}
+
+.navbar-logo-text {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 25px;
+}
+
+.navbar-toggler-icon {
+    background-image: url(./img/burger-icon.png)
+    !important;
+}
+
+.navbar-toggler:focus,
+.navbar-toggler:active,
+.navbar-toggler-icon:focus {
+    box-shadow: none;
+}
+
+.section-background {
+    background: radial-gradient(
+        14722% 4653.11% at 54.13% 52.82%,
+        #00D1D5 19.27%,
+        rgba(0, 228, 215, 0.84) 42.19%,
+        #00F4DB 58.33%,
+        #00F9DD 76.56%,
+        #00FFDF 100%);
+}
+
+.font-cantora-one {
+    font-family: 'Cantora One', sans-serif;
+}
+
+.font-noto-sans {
+    font-family: 'Noto Sans', sans-serif;
+}
+
+.text-shadow {
+    text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.4);
+}
+
+.bold {
+    font-weight: bold;
+}
