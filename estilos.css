@@ -1,4 +1,4 @@
-html {
+* {
   max-width: 100%;
   margin: 0 auto;
   padding: 0px;
@@ -11,10 +11,7 @@ body {
   background-color: white;
 }
 
-body,
-ul,
-li,
-p {
+body, ul, li, p {
   margin: 0px;
   padding: 0px;
   font-size: 1rem;
@@ -26,11 +23,7 @@ p {
 
 .header {
   width: 100%;
-  background-image: linear-gradient(
-    to right,
-    rgba(11, 183, 226, 0),
-    rgb(255, 255, 255)
-  );
+  background-image: linear-gradient( to right, rgba(11, 183, 226, 0), rgb(255, 255, 255));
   /* #24fcf4 */
 }
 
@@ -201,6 +194,7 @@ p {
 }
 
 /* Parte do Fábio começa a partir daqui */
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -242,8 +236,7 @@ p {
   margin-bottom: 15px;
 }
 
-.nomeProfissaoAvaliacao > p,
-.depoimentoContainerBottom > p {
+.nomeProfissaoAvaliacao>p, .depoimentoContainerBottom>p {
   margin-bottom: 5px;
   text-align: left;
   font-size: 18px;
@@ -319,7 +312,7 @@ footer {
   margin-left: 5%;
 }
 
-.copyright > p {
+.copyright>p {
   padding-top: 5px;
 }
 

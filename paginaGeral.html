@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Implementando o FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Implementando o Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <script src="https://kit.fontawesome.com/2e1e05dd96.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+    <header class="container-fluid header">  
+        <div id="divLogoMenu">
+            <img src="./img/logo.png" class="logo" alt="Logo Menu">
+        </div>
+        
+        <div class="menu">        
+ 
+            <nav id="nav">                    
+                    <ul id="nav-ul">                        
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Nossa História</a></li>
+                        <li><a href="#">Cadastro</a></li>
+                        <li><a href="#">Contato</a></li>
+                    </ul>
+            </nav>
+            <div id="menuHamburguer">
+                <span class="spanMenu"></span>
+                <span class="spanMenu"></span>
+                <span class="spanMenu"></span>
+            </div>
+        </div>
+    
+    
+    </header>
+
+    <main class="container-fluid main">
+
+        <section class="row" id="testarCadastrar">
+
+            <div class="col-12" id="testarCadastrar">
+
+                <h1>PODIUM</h1>
+                <p>Descubra os melhores podcasts pertinho de você!</p>
+
+
+                <button type="button" class="btn btn-info btn-lg">Testar</button>
+                <button type="button" class="btn btn-info btn-lg">Já tenho cadastro</button>
+
+            </div>
+        </section>
+
+        <section class="row" id="solucoes">
+
+            <div class="col-12" id="solucoesDiv">
+
+                <h1>Por que usar o Podium?</h1>
+
+                <button type="button" class="btn btn-info btn-lg">Solução 1</button>
+                <button type="button" class="btn btn-info btn-lg">Solução 2</button>
+                <button type="button" class="btn btn-info btn-lg">Solução 3</button>
+                <button type="button" class="btn btn-info btn-lg">Solução 4</button>
+            </div>
+        </section>
+
+        <section class="row" id="mapa">
+
+            <div class="col-12" id="mapa">
+
+                <h1>MAPA INTERATIVO</h1>
+            </div>
+        </section>
+
+        <!-- Depoimentos Carrousel -->
+
+        <section class="row" id="depoimentos">
+
+                <div class="col-12">
+                    <h1>DEPOIMENTOS</h1>
+                    <div class="carousel">
+                        <button class="carousel__button carousel__button--left">
+                            <img src="./img/left-arrow.svg" alt="Next Slide">
+                        </button>
+                    
+                        <div class="carousel__track-container">
+                            <ul class="carousel__track">
+                                <li class="carousel__slide current-slide">
+                                    <!-- código do depoimento 1 -->
+                                    <div id="carousel__depoimentos">
+                                        <div id="depoimentosDiv">
+                    
+                                            <div class="depoimentoContainer">
+                    
+                                                <div class="depoimentoContainerTop">
+                    
+                                                    <div class="usuarioFoto" id="marcosAugustoPhoto"></div>
+                    
+                                                    <div class="nomeProfissaoAvaliacao">
+                    
+                                                        <p class="nomeUsuario">Marcos Augusto</p>
+                                                        <p class="profissaoUsuario">Professor de Ed Física</p>
+                                                        <div class="avaliacaoEstrelas">
+                                                            <p class=avaliacao id="paragraph-avaliacao">Avaliação: </p>
+                                                            <div class="estrelas">
+                                                                <span class="fa fa-star checked"></span>
+                                                                <span class="fa fa-star checked"></span>
+                                                                <span class="fa fa-star checked"></span>
+                                                                <span class="fa fa-star checked"></span>
+                                                                <span class="fa fa-star checked"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                    
+                                                <div class="depoimentoContainerBottom">
+                                                    <p id="pAvaliacaoBottom">“Através do Podium consegui encontrar vários podcasts sobre
+                                                        esportes e
+                                                        viagem que ajudam preencher com mais alegria os meus dias.”
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                    
+                                <li class="carousel__slide">
+                                    <!-- código do depoimento 2 -->
+                                    <div id="carousel__depoimentos">
+                                        <div id="depoimentosDiv">
+                    
+                                            <div class="depoimentoContainer">
+                    
+                                                <div class="depoimentoContainerTop">
+                    
+                                                    <div class="usuarioFoto" id="robertoMesquitaPhoto"></div>
+                    
+                                                    <div class="nomeProfissaoAvaliacao">
+                    
+                                                        <p class="nomeUsuario">Roberto Mesquita</p>
+                                                        <p class="profissaoUsuario">Daytrader</p>
+                                                        <div class="avaliacaoEstrelas">
+                                                            <p class=avaliacao id="paragraph-avaliacao">Avaliação: </p>
+                                                            <div class="estrelas">
+                                                                <span class="fa fa-star checked"></span>
+                                                                <span class="fa fa-star checked"></span>
+                                                                <span class="fa fa-star checked"></span>
+                                                                <span class="fa fa-star checked"></span>
+                                                                <span class="fa fa-star checked"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                    
+                                                <div class="depoimentoContainerBottom">
+                                                    <p id="pAvaliacaoBottom">“O Podium me recomendou podcasts fantásticos em finanças. Sem
+                                                        contar
+                                                        os podcasts de humor que proporcionam boas gargalhadas.”
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                    
+                                <li class="carousel__slide">
+                                    <!-- código do depoimento 3 -->
+                                    <div id="carousel__depoimentos">
+                                        <div id="depoimentosDiv">
+                    
+                                            <div class="depoimentoContainer">
+                    
+                                                <div class="depoimentoContainerTop">
+                    
+                                                    <div class="usuarioFoto" id="sandraFerreiraPhoto"></div>
+                    
+                                                    <div class="nomeProfissaoAvaliacao">
+                    
+                                                        <p class="nomeUsuario">Sandra Ferreira</p>
+                                                        <p class="profissaoUsuario">Jornalista</p>
+                                                        <div class="avaliacaoEstrelas">
+                                                            <p class=avaliacao id="paragraph-avaliacao">Avaliação: </p>
+                                                            <div class="estrelas">
+                                                                <span class="fa fa-star checked"></span>
+                                                                <span class="fa fa-star checked"></span>
+                                                                <span class="fa fa-star checked"></span>
+                                                                <span class="fa fa-star checked"></span>
+                                                                <span class="fa fa-star checked"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                    
+                                                <div class="depoimentoContainerBottom">
+                                                    <p id="pAvaliacaoBottom">“A plataforma Podium me auxiliou a divulgar meu podcast,
+                                                        podendo
+                                                        aumentar, assim,
+                                                        a minha audiência em 30% em apenas 3 meses. Incrível!”
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    
+                        <button class="carousel__button carousel__button--right">
+                            <img src="./img/right-arrow.svg" alt="">
+                        </button>
+                    
+                        <div class="carousel__nav">
+                            <button class="carousel__indicator current-slide"></button>
+                            <button class="carousel__indicator"></button>
+                            <button class="carousel__indicator"></button>
+                        </div>
+                    </div>
+                </div>
+
+            
+
+        </section>
+
+    </main>
+
+    <footer>
+
+        <div class="container-fluid" id="footer-container">
+
+            <div class="row">
+
+                <div class="col-1 logo"></div>
+
+                <div class="col-11 copyright">
+
+                    <p id="pFooter">
+
+                        Copyright &#169 Podium - 2021
+
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Script da Página -->
+    <script src="./paginaGeral.js"></script>
+
+    <!-- Scripts do Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>
