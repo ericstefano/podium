@@ -11,15 +11,79 @@ body{
     overflow-x: hidden;
 }
 
-.logo {
-    width: 50px;
-}
-
 .header {
     width: 100%;
     background-image: linear-gradient( to right, rgba(11, 183, 226, 0), rgb(255, 255, 255));
     /* #24fcf4 */
+    height:50px;
+    display:flex;
 }
+
+/*menu responsivo*/
+.menu{
+    display:flex;
+    width:100%;
+    justify-content: flex-end;
+}
+
+#nav{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#nav-ul{
+    display: flex;    
+    margin-bottom:0;   
+    list-style-type: none;
+    
+}
+
+#nav-ul li a {
+    padding: 0 20px;
+    text-decoration:none;
+}
+
+#menuHamburguer{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    cursor: pointer;
+    
+}
+
+#menuHamburguer>span{
+    display:block;
+    height:4px;
+    width:26px;
+    border-radius: 10px;
+    background-color: black;
+}
+
+#menuHamburguer>span:not(:last-child){
+    margin-bottom:5px;
+}
+
+/*Media Query para tornar no menu responsivo*/
+
+@media screen and (min-width: 768px) {
+    #menuHamburguer{
+        display:none;
+    }
+    
+}
+
+@media screen and (max-width: 768px) {
+    #nav-ul{
+        display:none;
+    }
+    
+}
+
+
+
+
+
 
 h1{
     text-align: center;
@@ -47,6 +111,7 @@ h1{
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
+    padding: 20px;
 }
 
 #solucoesDiv, #testarCadastrar {
@@ -69,6 +134,7 @@ h1{
     background-attachment: fixed;
     background-size: cover;
     text-align: center;
+    padding: 20px;
 }
 
 #depoimentos {
@@ -80,7 +146,8 @@ h1{
     color: white;
     height: 1000px;
     padding-right:20px;
-    padding-left:20px;    
+    padding-left:20px; 
+    padding-top:50px;   
 }
 
 #marcosAugustoPhoto {
@@ -138,7 +205,7 @@ h1{
     background-repeat: no-repeat;    
 }
 
-/* Media Query para ajustar o tamanho da foto do usuário no celular */
+/* Media Query para ajustar no celular o tamanho da foto das pessoas que fizeram depoimento*/
 @media screen and (max-width:450px){
     .usuarioFoto {
     width: 70px;
@@ -195,11 +262,12 @@ footer {
     margin-left: 15px;
 }
 
-.logoFooter {
+.logo {
     background-image: url(./img/logo.png);
     background-size: cover;
-    background-size: 45px 45px;
+    background-size: 50px 50px;
     background-repeat: no-repeat;
+    height:50px;
 }
 
 .copyright {
@@ -256,6 +324,7 @@ footer {
     background:transparent;
     border:0;
     cursor: pointer;
+    outline:none !important;
 }
 
 .carousel__button--left{
