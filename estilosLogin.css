@@ -1,29 +1,3 @@
-.navbar {
-    padding-top: 0;
-    padding-bottom: 0;
-    background: linear-gradient(
-        270deg,
-        #00D1D5 19.27%,
-        rgba(0, 228, 215, 0.84) 42.19%,
-        #00F4DB 58.33%,
-        #00F9DD 72.92%,
-        #00FFDF 78.64%,
-        #00FCDE 87.88%,
-        rgba(0, 236, 217, 0.917419) 94.16%,
-        rgba(0, 217, 214, 0.934545) 100%);
-}
-
-.navbar-brand {
-    padding-top: 0;
-    padding-bottom: 0;
-    margin-right: 0;
-}
-
-.navbar-logo {
-    width: 52px;
-    height: 52px;
-}
-
 .navbar-logo-text {
     display: inline-block;
     vertical-align: middle;
@@ -41,7 +15,20 @@
     box-shadow: none;
 }
 
-.section-background {
+.gradient1 {
+    background: linear-gradient(
+        270deg,
+        #00D1D5 19.27%,
+        rgba(0, 228, 215, 0.84) 42.19%,
+        #00F4DB 58.33%,
+        #00F9DD 72.92%,
+        #00FFDF 78.64%,
+        #00FCDE 87.88%,
+        rgba(0, 236, 217, 0.917419) 94.16%,
+        rgba(0, 217, 214, 0.934545) 100%);
+}
+
+.gradient2 {
     background: radial-gradient(
         14722% 4653.11% at 54.13% 52.82%,
         #00D1D5 19.27%,
@@ -49,6 +36,19 @@
         #00F4DB 58.33%,
         #00F9DD 76.56%,
         #00FFDF 100%);
+}
+
+.hero-backgroud {
+    min-height: 25em;
+    margin-top: 4.5em;
+    background-image: url(img/podcasts.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.max-size {
+    max-width: 600px;
 }
 
 .font-cantora-one {
@@ -65,4 +65,8 @@
 
 .bold {
     font-weight: bold;
+}
+
+footer {
+    height: 3.5em;
 }
