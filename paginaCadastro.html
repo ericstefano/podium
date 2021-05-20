@@ -7,56 +7,86 @@
     <title>Cadastro</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
-    <link rel="stylesheet" href="estilosCadastro.css">
+    <!-- <link rel="stylesheet" href="estilosCadastro.css"> -->
+    <link href="estilosLogin.css" rel="stylesheet">
 </head>
 
-<body>
-    <main>
-        <div class="row header">
-            <div class="col-12">
-                <img src="img/logo.png">
-                <h1>Podium</h1>
+<body class="d-flex flex-column min-vh-100 gradient1">
+    <nav class="navbar navbar-dark fixed-top py-0 gradient1 shadow">
+        <div class="container-fluid max-size">
+            <a class="navbar-brand py-1 ms-0" href="#home">
+                <img src="img/logo2.png" class="element-shadow" alt="logo" width="52px" height="52px">
+                <span class="navbar-logo-text font-cantora-one bold text-shadow">Podium</span>
+            </a>
+            <button class="navbar-toggler element-shadow border-0" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse font-noto-sans bold text-shadow" id="navbarSupportedContent">
+                <ul class="navbar-nav ps-3">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="pagina1" href="#">pagina 1</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="pagina2" href="#">pagina 2</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="pagina3" href="#">pagina 3</a>
+                    </li>
+                </ul>
             </div>
         </div>
-        <div>
-            <h2>Cadastro de usuário</h1><br>
-                <div>
-                    <form>
-                        <fieldset class="grupo">
-                            <div>
-                                <input type="text" name="nome" id="nome" placeholder="Nome" required>
-                            </div>
-                            <div>
-                                <input type="text" name="sobrenome" id="sobrenome" placeholder="Sobrenome" required>
-                            </div>
-                            <div>
-                                <input type="email" name="email" id="email" placeholder="E-mail" required>
-                            </div>
-                            <div>
-                                <input type="password" name="senha" id="senha" placeholder="Senha" required>
-                            </div>
-                            <div>
-                                <label>
-                                    <input type="checkbox" name="termo" value="termo" required>Concordo com os <a
-                                        href="#">Termos do Podium</a>
-                                </label>
-                            </div>
-                            <div>
-                                <label>
-                                    <input type="radio" name="usuario" value="usuario" checked>Sou usuário
-                                </label>
-                                <label>
-                                    <input type="radio" name="usuario" value="podcaster">Sou podcaster
-                                </label>
-                            </div>
-                            <button class="botao">Registre-se</button>
-                        </fieldset>
-                    </form>
-                </div>
+    </nav>
+    <div class="container-fluid" style="margin-top: 15em; max-width: 600px;">
+        <div class="d-flex justify-content-center">
+            <h2 class="text-shadow" style="color: white;">Criar uma nova conta</h2><br>
         </div>
-    </main>
-    <footer>
-
+        <div class="d-flex mt-1">
+            <input type="email" class="form-control rounded-pill border-0 box-shadow text-shadow2" id="exampleInputEmail1" aria-describedby="emailHelp"
+                style="width: 600px;" placeholder="Nome">
+        </div>
+        <div class="d-flex mt-3">
+            <input type="email" class="form-control rounded-pill border-0 box-shadow text-shadow2" id="exampleInputEmail1" aria-describedby="emailHelp"
+                style="width: 600px;" placeholder="Sobrenome">
+        </div>
+        <div class="d-flex mt-3">
+            <input type="email" class="form-control rounded-pill border-0 box-shadow text-shadow2" id="exampleInputEmail1" aria-describedby="emailHelp"
+                style="width: 600px;" placeholder="E-mail">
+        </div>
+        <div class="d-flex mt-3">
+            <input type="email" class="form-control rounded-pill border-0 box-shadow text-shadow2" id="exampleInputEmail1" aria-describedby="emailHelp"
+                style="width: 600px;" placeholder="Senha">
+        </div>
+        <div class="d-flex form-check mt-3">
+            <input class="form-check-input me-1" type="checkbox" value="" id="flexCheckDefault">
+            <label class="form-check-label" for="flexCheckDefault">
+                Concordo com os <a href="">termos do Podium</a>
+            </label>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <div class="d-flex form-check mt-2">
+                    <input class="form-check-input me-1" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Sou podcaster
+                    </label>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="d-flex form-check mt-2">
+                    <input class="form-check-input me-1" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Sou usuário
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="d-grid my-3">
+            <button type="button" class="btn btn-primary">Registre-se</button>
+        </div>
+    </div>
+    <footer class="gradient2 mt-auto">
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8"
