@@ -9,55 +9,11 @@
         integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
     <!-- <link rel="stylesheet" href="estilosCadastro.css"> -->
     <link href="estilosLogin.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cantora+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
 </head>
 
 <body class="d-flex flex-column min-vh-100 gradient1">
-    <script>
-        onload = () => {
-            nome.onblur = () => {
-                if(nome.value.length == 0){
-                    instrucoes.innerHTML = '*';
-                    instrucoes.style.color = '#F00';
-                    instrucoes.style.fontSize = '2em';
-                }else instrucoes.innerHTML = '';
-            }
-            nome.oninput = () => {
-                let invalidos = '1234567890!@#$%&*(){}[]-+=_,.<>;?\:/*';
-                let ultimoChar = nome.value.charAt(nome.value.length - 1);
-                if (invalidos.indexOf(ultimoChar) >= 0){
-                    nome.value = nome.value.substr(0, nome.value.length - 1);
-                }
-            }
-            sobrenome.onblur = () => {
-                if(sobrenome.value.length == 0){
-                    instrucoes2.innerHTML = '*';
-                    instrucoes2.style.color = '#F00';
-                    instrucoes2.style.fontSize = '2em';
-                }else instrucoes2.innerHTML = '';
-            }
-            sobrenome.oninput = () => {
-                let invalidos = '1234567890!@#$%&*(){}[]-+=_,.<>;?\:/*';
-                let ultimoChar = sobrenome.value.charAt(sobrenome.value.length - 1);
-                if (invalidos.indexOf(ultimoChar) >= 0){
-                    sobrenome.value = sobrenome.value.substr(0, sobrenome.value.length - 1);
-                }
-            }
-            email.onblur = () => {
-                if(email.value.length == 0){
-                    instrucoes3.innerHTML = '*';
-                    instrucoes3.style.color = '#F00';
-                    instrucoes3.style.fontSize = '2em';
-                }else instrucoes3.innerHTML = '';
-            }
-            senha.onblur = () => {
-                if(senha.value.length == 0){
-                    instrucoes4.innerHTML = '*';
-                    instrucoes4.style.color = '#F00';
-                    instrucoes4.style.fontSize = '2em';
-                }else instrucoes4.innerHTML = '';
-            }
-        }
-    </script>
     <nav class="navbar navbar-dark fixed-top py-0 gradient1 shadow">
         <div class="container-fluid max-size">
             <a class="navbar-brand py-1 ms-0" href="#home">
@@ -86,54 +42,54 @@
     </nav>
     <div class="container-fluid" style="margin-top: 15em; max-width: 600px;">
         <div class="d-flex justify-content-center">
-            <h2 class="text-shadow" style="color: white;">Criar uma nova conta</h2><br>
+            <h2 class="text-shadow display-5" style="color: white;">Criar uma nova conta</h2><br>
         </div>
         <div class="d-flex mt-1">
-            <input type="name" name="nome" class="form-control rounded-pill border-0 box-shadow text-shadow2" id="nome" aria-describedby="emailHelp"
-                style="width: 600px;" placeholder="Nome">
+            <input type="name" name="nome" class="form-control rounded-pill border-0 box-shadow text-shadow2" id="nome"
+                aria-describedby="emailHelp" style="width: 600px;" placeholder="Nome">
             <span id="instrucoes"></span>
         </div>
         <div class="d-flex mt-3">
-            <input type="name" name="sobrenome" class="form-control rounded-pill border-0 box-shadow text-shadow2" id="sobrenome" aria-describedby="emailHelp"
-                style="width: 600px;" placeholder="Sobrenome">
+            <input type="name" name="sobrenome" class="form-control rounded-pill border-0 box-shadow text-shadow2"
+                id="sobrenome" aria-describedby="emailHelp" style="width: 600px;" placeholder="Sobrenome">
             <span id="instrucoes2"></span>
         </div>
         <div class="d-flex mt-3">
-            <input type="email" name="email" class="form-control rounded-pill border-0 box-shadow text-shadow2" id="email" aria-describedby="emailHelp"
-                style="width: 600px;" placeholder="E-mail">
+            <input type="email" name="email" class="form-control rounded-pill border-0 box-shadow text-shadow2"
+                id="email" aria-describedby="emailHelp" style="width: 600px;" placeholder="E-mail">
             <span id="instrucoes3"></span>
         </div>
         <div class="d-flex mt-3">
-            <input type="password" name="senha" class="form-control rounded-pill border-0 box-shadow text-shadow2" id="senha" aria-describedby="emailHelp"
-                style="width: 600px;" placeholder="Senha">
+            <input type="password" name="senha" class="form-control rounded-pill border-0 box-shadow text-shadow2"
+                id="senha" aria-describedby="emailHelp" style="width: 600px;" placeholder="Senha">
             <span id="instrucoes4"></span>
         </div>
         <div class="d-flex form-check mt-3">
-            <input class="form-check-input me-1" type="checkbox" value="" id="flexCheckDefault">
-            <label class="form-check-label" for="flexCheckDefault">
-                Concordo com os <a href="">termos do Podium</a>
+            <input class="form-check-input me-2" type="checkbox" value="" id="termo">
+            <label class="form-check-label" for="termo">
+                <span class="text-shadow2">Concordo com os <a href="">termos do Podium</a></span>
             </label>
         </div>
         <div class="row">
             <div class="col-6">
                 <div class="d-flex form-check mt-2">
-                    <input class="form-check-input me-1" type="checkbox" value="" id="flexCheckDefault">
-                    <label class="form-check-label" for="flexCheckDefault">
+                    <input class="form-check-input me-2" type="checkbox" value="" id="podcaster">
+                    <label class="form-check-label" for="podcaster">
                         Sou podcaster
                     </label>
                 </div>
             </div>
             <div class="col-6">
                 <div class="d-flex form-check mt-2">
-                    <input class="form-check-input me-1" type="checkbox" value="" id="flexCheckDefault">
-                    <label class="form-check-label" for="flexCheckDefault">
+                    <input class="form-check-input me-2" type="checkbox" value="" id="usuario">
+                    <label class="form-check-label" for="usuario">
                         Sou usuário
                     </label>
                 </div>
             </div>
         </div>
         <div class="d-grid my-3">
-            <button type="button" class="btn btn-primary">Registre-se</button>
+            <button type="button" class="btn btn-primary rounded-pill box-shadow">Registre-se</button>
         </div>
     </div>
     <footer class="gradient2 mt-auto">
@@ -141,6 +97,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8"
         crossorigin="anonymous"></script>
+    <script src="paginaCadastro.js"></script>
 </body>
 
 </html>
