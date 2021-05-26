@@ -32,12 +32,15 @@ onload = () => {
             instrucoes3.innerHTML = '*';
             instrucoes3.style.color = '#F00';
             instrucoes3.style.fontSize = '2em';
-        } else instrucoes3.innerHTML = '';
-        if (email.value.indexOf('@') == -1 || email.value.indexOf('.')){
+        } else instrucoes3.innerHTML = ''; 
+
+
+        if (email.value.indexOf('@') == -1 || email.value.indexOf('.') == -1){
             alert("Por favor insira um e-mail válido.");
-            return false;
+            
         }
     }
+
     senha.onblur = () => {
         if (senha.value.length == 0) {
             instrucoes4.innerHTML = '*';
