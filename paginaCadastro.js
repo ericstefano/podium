@@ -45,18 +45,18 @@ onload = () => {
         if (email.value.indexOf('@') == -1 || email.value.indexOf('.') == -1){
             alert("Por favor insira um e-mail válido.");
             emailValidacao=false;                     
+        } else {
+            instrucoes3.innerHTML = '';
         }
 
-        } else instrucoes3.innerHTML = '';
-
-    }
     senha.onblur = () => {
         if (senha.value.length == 0) {
             instrucoes4.innerHTML = '*';
             instrucoes4.style.color = '#F00';
             instrucoes4.style.fontSize = '2em';
-        } else instrucoes4.innerHTML = '';
-    }
+        } else {
+            instrucoes4.innerHTML = '';
+        }
 }
 
 let botaoRegistrar=document.getElementById('btn_registrar');
@@ -64,6 +64,7 @@ let campoNome = document.getElementById('nome');
 let campoSobrenome = document.getElementById('sobrenome');
 let campoEmail = document.getElementById('email');
 let campoPassword = document.getElementById('senha');
+
 botaoRegistrar.addEventListener('click', ()=>{
     
     let dados = JSON.parse(localStorage.getItem('cadastroUsuarios'));
@@ -83,12 +84,9 @@ botaoRegistrar.addEventListener('click', ()=>{
     dados.push(cadastro);
 
     localStorage.setItem('cadastroUsuarios',JSON.stringify(dados));
-    alert('Usuário cadastrado!')
-
-    
-    
+    alert('Usuário cadastrado!')    
 })
-=======
+
 function verificar() {
     let especiais = '!@#$%&*(){}[]\/<>|?+-';
     let minusculo = 'qwertyuiopçlkjhgfdsazxcvbnm';
@@ -213,4 +211,4 @@ function verificar() {
         return true;
     }
 }
-
+    }}
