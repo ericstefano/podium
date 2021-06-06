@@ -28,12 +28,27 @@ onload = () => {
         }
     }
     email.onblur = () => {
+
+        let emailValidacao=true;
+
         let necessario = '@';
+
         if (email.value.length == 0) {
             instrucoes3.innerHTML = '*';
             instrucoes3.style.color = '#F00';
             instrucoes3.style.fontSize = '2em';
+
+            emailValidacao=false;
+        } else instrucoes3.innerHTML = ''; 
+
+
+        if (email.value.indexOf('@') == -1 || email.value.indexOf('.') == -1){
+            alert("Por favor insira um e-mail válido.");
+            emailValidacao=false;                     
+        }
+
         } else instrucoes3.innerHTML = '';
+
     }
     senha.onblur = () => {
         if (senha.value.length == 0) {
@@ -43,6 +58,37 @@ onload = () => {
         } else instrucoes4.innerHTML = '';
     }
 }
+
+let botaoRegistrar=document.getElementById('btn_registrar');
+let campoNome = document.getElementById('nome');
+let campoSobrenome = document.getElementById('sobrenome');
+let campoEmail = document.getElementById('email');
+let campoPassword = document.getElementById('senha');
+botaoRegistrar.addEventListener('click', ()=>{
+    
+    let dados = JSON.parse(localStorage.getItem('cadastroUsuarios'));
+
+    if(!dados){
+        localStorage.setItem('cadastroUsuarios','[]')
+        dados=[];
+    }
+
+    let cadastro = {
+        "nome": campoNome.value,
+        "sobrenome": campoSobrenome.value,
+        "emailUsuario": campoEmail.value,
+        "senhaUsuario":campoPassword.value
+    }
+
+    dados.push(cadastro);
+
+    localStorage.setItem('cadastroUsuarios',JSON.stringify(dados));
+    alert('Usuário cadastrado!')
+
+    
+    
+})
+=======
 function verificar() {
     let especiais = '!@#$%&*(){}[]\/<>|?+-';
     let minusculo = 'qwertyuiopçlkjhgfdsazxcvbnm';
@@ -167,3 +213,4 @@ function verificar() {
         return true;
     }
 }
+
