@@ -1,17 +1,16 @@
-function LoginFake() {
+const botaoEntrar=document.getElementById('btn_entrar');
+botaoEntrar.addEventListener('click',()=>{
+    let usuario = document.getElementById('email').value;
+    let senha = document.getElementById('senha').value;
+    let usuariosCadastrados = JSON.parse(localStorage.getItem('cadastroUsuarios'));
+    
+    for (let i=0;i<usuariosCadastrados.length;i++){
+        if (usuario == usuariosCadastrados[i].emailUsuario && senha == usuariosCadastrados[i].senhaUsuario ){
+            return alert('Sucesso! Página interna será carregada.')
+        }        
+    }   
 
-    let login_padrao = "admin";
-    let senha_padrao = "admin";
+    alert('Dados Incorretos!');
 
-    let usuario = document.getElementById("email").value;
-    let senha = document.getElementById("senha").value;
 
-    console.log(usuario);
-
-    if (usuario == login_padrao && senha == senha_padrao) { 
-        alert("Logado com sucesso!");
-        location.replace("paginaGeral.html");
-    } else {
-        alert("Dados incorretos");
-    }
-}
+})

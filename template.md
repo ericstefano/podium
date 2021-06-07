@@ -1,18 +1,22 @@
+<<*TEMPLATE DE CÓDIGOS PADRÃO PARA HEADER E FOOTER*>>
+
+HTML:
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Podium Login</title>
+    <title>Podium</title>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Cantora+One&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
-    <!-- <link rel="stylesheet" href="estilos.css"> -->
-    <link rel="stylesheet" href="estilosLogin.css">
+
+    <link rel="stylesheet" href="estilosInterna.css">
 </head>
 
 <body class="d-flex flex-column min-vh-100">
@@ -42,38 +46,83 @@
             </div>
         </div>
     </nav>
-    <div class="container-fluid hero-backgroud max-size"></div>
-    <section class="container-fluid max-size px-4 my-5">
-        <div class="col text-center">
-            <h1 class="d-inline mx-1 display-5 text-shadow2">Acessar conta</h1>
-            <p class="d-inline m-0 mx-1 text-shadow2">ou <a href=""> crie uma conta</a></p>
-        </div>
-        <input type="email" class="form-control mt-3 rounded-pill border-0 box-shadow text-shadow2" id="email"
-            placeholder="E-mail">
-        <input type="password" class="form-control mt-3 rounded-pill border-0 box-shadow text-shadow2" id="senha"
-            placeholder="Senha">
-        <a href="" class="d-inline-flex mt-3 text-shadow2">esqueci minha senha</a>
-        <div class="d-flex mt-2">
-            <div class="form-check me-auto align-self-center text-shadow2">
-                <input class="form-check-input box-shadow" type="checkbox" value="" id="flexCheckDefault">
-                <label class="form-check-label" for="flexCheckDefault">
-                    Lembre-se de mim
-                </label>
-            </div>
-            <div class="d-grid col-4">
-                <button id='btn_entrar' class="btn btn-primary rounded-pill box-shadow gradient2 text-shadow2 border-0 bold" type="submit">
-                    Entrar
-                </button>
-            </div>
-        </div>
-        </div>
-    </section>
-    <footer class="gradient1 mt-auto">
-    </footer>
+
+    <footer class="gradient1 mt-auto"></footer>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8"
-        crossorigin="anonymous"></script>
-    <script src="paginaLogin.js" crossorigin="anonymous"></script>
+        integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous">
+        </script>
 </body>
 
 </html>
+
+CSS:
+body {
+    background-color: #00ffdf;
+}
+
+/* NAVBAR */
+
+.navbar-logo-text {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 25px;
+}
+
+.navbar-toggler-icon {
+    background-image: url(./img/burger-icon.png) !important;
+}
+
+.navbar-toggler:focus, .navbar-toggler:active, .navbar-toggler-icon:focus {
+    box-shadow: none;
+}
+
+/* FIM: NAVBAR */
+
+/* GRADIENTE HEADER E FOOTER */
+
+.gradient1 {
+    background: linear-gradient( 270deg, #00D1D5 19.27%, rgba(0, 228, 215, 0.84) 42.19%, #00F4DB 58.33%, #00F9DD 72.92%, #00FFDF 78.64%, #00FCDE 87.88%, rgba(0, 236, 217, 0.917419) 94.16%, rgba(0, 217, 214, 0.934545) 100%);
+}
+
+.gradient2 {
+    background: radial-gradient( 14722% 4653.11% at 54.13% 52.82%, #00D1D5 19.27%, rgba(0, 228, 215, 0.84) 42.19%, #00F4DB 58.33%, #00F9DD 76.56%, #00FFDF 100%);
+}
+
+/* FIM: GRADIENTE HEADER E FOOTER */
+
+.max-size {
+    max-width: 600px;
+}
+
+.font-cantora-one {
+    font-family: 'Cantora One', sans-serif;
+}
+
+.font-noto-sans {
+    font-family: 'Noto Sans', sans-serif;
+}
+
+.text-shadow {
+    text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.4);
+}
+
+.text-shadow2 {
+    text-shadow: 0 0.025rem 0.05rem rgba(0, 0, 0, .15) !important;
+}
+
+.element-shadow {
+    filter: drop-shadow(0px 0px 3px rgba(0, 0, 0, 0.4));
+}
+
+.box-shadow {
+    box-shadow: 0 .2rem .4rem rgba(0, 0, 0, .15) !important;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+footer {
+    height: 3.5em;
+}
