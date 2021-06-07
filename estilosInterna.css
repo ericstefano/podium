@@ -1,0 +1,104 @@
+body {
+    background-color: #00ffdf;
+    font-family: 'Noto Sans', sans-serif;
+    color: white;
+}
+
+#main {
+    padding-top: 100px;
+    padding-bottom: 20px;
+}
+
+#carouselArea {
+    display: flex;
+}
+
+/* #img {
+    max-width: 300px;
+    max-height: 300px;
+    float: right;
+}*/
+
+footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    color: white;
+    text-align: center;
+}
+
+#FooterContent {
+    padding: 10px;
+}
+
+.btn {
+    font-size: 1.2rem;
+    padding-left: 20px;
+}
+
+/* NAVBAR */
+
+.navbar-logo-text {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 25px;
+}
+
+.navbar-toggler-icon {
+    background-image: url(./img/burger-icon.png) !important;
+}
+
+.navbar-toggler:focus, .navbar-toggler:active, .navbar-toggler-icon:focus {
+    box-shadow: none;
+}
+
+/* FIM: NAVBAR */
+
+/* GRADIENTE HEADER E FOOTER */
+
+.gradient1 {
+    background: linear-gradient( 270deg, #00D1D5 19.27%, rgba(0, 228, 215, 0.84) 42.19%, #00F4DB 58.33%, #00F9DD 72.92%, #00FFDF 78.64%, #00FCDE 87.88%, rgba(0, 236, 217, 0.917419) 94.16%, rgba(0, 217, 214, 0.934545) 100%);
+}
+
+.gradient2 {
+    background: radial-gradient( 14722% 4653.11% at 54.13% 52.82%, #00D1D5 19.27%, rgba(0, 228, 215, 0.84) 42.19%, #00F4DB 58.33%, #00F9DD 76.56%, #00FFDF 100%);
+}
+
+/* FIM: GRADIENTE HEADER E FOOTER */
+
+.max-size {
+    max-width: 600px;
+}
+
+.font-cantora-one {
+    font-family: 'Cantora One', sans-serif;
+}
+
+.font-noto-sans {
+    font-family: 'Noto Sans', sans-serif;
+}
+
+.text-shadow {
+    text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.4);
+}
+
+.text-shadow2 {
+    text-shadow: 0 0.025rem 0.05rem rgba(0, 0, 0, .15) !important;
+}
+
+.element-shadow {
+    filter: drop-shadow(0px 0px 3px rgba(0, 0, 0, 0.4));
+}
+
+.box-shadow {
+    box-shadow: 0 .2rem .4rem rgba(0, 0, 0, .15) !important;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+footer {
+    height: 3.5em;
+}
