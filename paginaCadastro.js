@@ -84,7 +84,7 @@ botaoRegistrar.addEventListener('click', ()=>{
     dados.push(cadastro);
 
     localStorage.setItem('cadastroUsuarios',JSON.stringify(dados));
-    alert('Usuário cadastrado!')    
+    window.location.replace('paginaLogin.html'); 
 })
 
 function verificar() {

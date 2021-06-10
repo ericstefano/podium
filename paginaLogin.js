@@ -6,7 +6,7 @@ botaoEntrar.addEventListener('click',()=>{
     
     for (let i=0;i<usuariosCadastrados.length;i++){
         if (usuario == usuariosCadastrados[i].emailUsuario && senha == usuariosCadastrados[i].senhaUsuario ){
-            return alert('Sucesso! Página interna será carregada.')
+            return window.location.replace('paginaInterna.html')
         }        
     }   
 
