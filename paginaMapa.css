@@ -1,0 +1,29 @@
+/* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+
+#map {
+    height: 100%;
+    width: 100%;
+    margin-top: -36px;
+}
+
+/* Optional: Makes the sample page fill the window. */
+
+html, body {
+    height: 96.9%;
+    margin: 0;
+    padding: 0;
+}
+
+.form-mapa {
+    display: grid;
+    place-items: center;
+    position: fixed;
+    z-index: 1030;
+    transform: translateY(+100%);
+}
+
+.form-mapa-input {
+    width: 85% !important;
+    /* min-width: 50%; */
+}
