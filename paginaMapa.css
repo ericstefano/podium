@@ -24,6 +24,5 @@ html, body {
 }
 
 .form-mapa-input {
-    width: 85% !important;
-    /* min-width: 50%; */
+    width: 85vw !important;
 }
