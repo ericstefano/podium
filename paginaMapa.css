@@ -1,30 +1,33 @@
-html, body{
+html, body {
     height: 100%;
 }
 
-.wrapper{
+ul, li, p {
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+}
+
+.wrapper {
     height: 100%;
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 60px auto;
 }
 
-.navbar{
+.navbar {
     grid-row: 1/2;
 }
 
-#map{
+#map {
     height: 100%;
     grid-row: 2/2;
 }
 
-.parent {
-    display: grid;
-    place-items: center;
-}
-
-.form-mapa{
-    position: absolute;
+.form-mapa {
+    display: flex;
+    place-self: center;
+    position: relative;
     top: 160px;
 }
 
@@ -32,7 +35,20 @@ html, body{
     width: 60vw;
 }
 
-.test-div {
-    position: absolute;
-    bottom: 10px;
+.modal-podcast {
+    display: flex;
+    align-items: center;
+}
+
+.modal-podcast img {
+    display: block;
+    max-width: 50px;
+    max-height: 50px;
+    margin-right: 10px;
+}
+
+.botao-localizacao {
+    position: relative;
+    display: flex;
+    place-self: center;
 }
