@@ -120,6 +120,39 @@ var markersOnMap = [
     }
 ]
 
+const createModal = (marker) => {
+    let htmlModal = `
+<div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+        <div class="modal-header">
+            <div class="modal-podcast">
+                <img
+                    src="${marker.icon}">
+                <h5 class="modal-title" id="exampleModalLabel">Podcast ${marker.title}</h5>
+            </div>
+        </div>
+        <div class="modal-body">
+            <h5>Descrição</h5>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates quos mollitia laborum
+                maxime
+                quibusdam, et voluptas similique modi voluptatum rerum nulla veniam culpa deleniti sequi
+                autem
+                aperiam doloribus. Enim, at.</p>
+
+        </div>
+        <div class="modal-footer d-flex justify-content-start">
+            <div class="me-auto">
+                <p class="my-0">${marker.position}</p>
+            </div>
+            <button type="button" class="btn btn-primary">Escutar</button>
+        </div>
+    </div>
+</div>`
+    let modal = document.getElementById("exampleModal").innerHTML = htmlModal;
+    let bootstrapModal = new bootstrap.Modal(document.getElementById('exampleModal'));
+    bootstrapModal.show();
+}
+
 window.onload = function () {
     initMap();
 };
@@ -138,7 +171,8 @@ function addMarkerInfo() {
         // Abrir/Criar Modal do podcast
 
         marker.addListener("click", () => {
-            alert(marker.title);
+            // alert(marker.title);
+            createModal(marker);
         });
     }
 }
@@ -177,3 +211,4 @@ function initMap() {
     });
     addMarkerInfo();
 }
+
