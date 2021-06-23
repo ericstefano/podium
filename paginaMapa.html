@@ -63,15 +63,16 @@
         <div class="map" id="map"></div>
 
         <div class="form-mapa">
-            <form class="form-floating form-mapa-input box-shadow">
-                <input type="text" class="form-control" id="floatingInputValue">
+            <form class="form-floating form-mapa-input box-shadow" id="pesquisa" onsubmit="return false">
                 <label for="floatingInputValue">Procure um podcast <i class="fas fa-search"></i></label>
+                <input type="text" class="form-control" id="floatingInputValue">
             </form>
             <div class="btn botao-localizacao" id="btn-current-location">
                 <button onclick="currentLocation()" type="button" class="btn btn-primary"><i
                         class="fas fa-map-marked-alt"></i></button>
             </div>
         </div>
+
     </div>
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
