@@ -1,122 +1,109 @@
-var map;
-var centerCoords = {
+const mapElement = document.getElementById("map")
+const pesquisaElement = document.getElementById("pesquisa");
+const modalElement = document.getElementById("exampleModal")
+const centerCoords = {
     lat: -19.905328282366675,
     lng: -43.97587664589055
 };
-
-var markersOnMap = [
+const markersOnMap = [
     {
-        LatLng: [{
+        LatLng: {
             lat: -19.85205145019345,
             lng: -43.97841751460232
-        }],
-        type: 'podcast',
+        },
         nome: "Café Brasil",
         icon: 'img/podcast-icon2.png'
 
     },
     {
-        LatLng: [{
+        LatLng: {
             lat: -19.87131996466008,
             lng: -43.984518954106576
-        }],
-        type: 'podcast',
+        },
         nome: "BrainCast"
     },
     {
-        LatLng: [{
+        LatLng: {
             lat: -19.88187884554605,
             lng: -44.00085022825316
-        }],
-        type: 'podcast',
+        },
         nome: "NerdCast"
     },
     {
-        LatLng: [{
+        LatLng: {
             lat: -19.9020347548531,
             lng: -44.005545469570286
-        }],
-        type: 'podcast',
+        },
         nome: "NerdCast"
     },
     {
-        LatLng: [{
+        LatLng: {
             lat: -19.881686872173166,
             lng: -43.92490980347161
-        }],
-        type: 'podcast',
+        },
         nome: "RapaduraCast"
     },
     {
-        LatLng: [{
+        LatLng: {
             lat: -19.888981696801125,
             lng: -43.924093239764275
-        }],
-        type: 'podcast',
+        },
         nome: "Mundo Podcast"
     },
     {
-        LatLng: [{
+        LatLng: {
             lat: -19.896084229515576,
             lng: -43.957368210837906
-        }],
-        type: 'podcast',
+        },
         nome: "Bom dia, Obvious"
     },
     {
-        LatLng: [{
+        LatLng: {
             lat: -19.918541492421443,
             lng: -43.93981209113035
-        }],
-        type: 'podcast',
+        },
         nome: "Acenda a Sua Luz"
     },
     {
-        LatLng: [{
+        LatLng: {
             lat: -19.932743585147396,
             lng: -44.050048191619695
-        }],
-        type: 'podcast',
+        },
         nome: "Zine Negócios"
     },
     {
-        LatLng: [{
+        LatLng: {
             lat: -19.942338871157848,
             lng: -44.03637074952194
-        }],
-        type: 'podcast',
+        },
         nome: "Projetos Humanos"
     },
     {
-        LatLng: [{
+        LatLng: {
             lat: -19.959800795429427,
             lng: -43.96247173400872
-        }],
-        type: 'podcast',
+        },
         nome: "Autoconsciente"
     },
     {
-        LatLng: [{
+        LatLng: {
             lat: -19.935622232151992,
             lng: -43.92980918571558
-        }],
-        type: 'podcast',
+        },
         nome: "Nerdcast"
     },
     {
-        LatLng: [{
+        LatLng: {
             lat: -19.97188868792483,
             lng: -43.938383104642526
-        }],
-        type: 'podcast',
+        },
         nom: "Autoconsciente"
     },
     {
-        LatLng: [{
+        LatLng: {
             lat: -19.851928188281764,
             lng: -43.953081251374435
-        }],
-        type: 'podcast',
+        },
         nome: "Pretinho Básico"
     },
     {
@@ -124,13 +111,27 @@ var markersOnMap = [
             lat: -19.857304363800623,
             lng: -43.968595961813676
         }],
-        type: 'podcast',
         nome: "Filhos da Grávida de Taubaté"
     }
-]
+];
 
-const createModal = (marker) => {
-    let htmlModal = `
+const addMarkerInfo = map => {
+    for (let i = 0; i < markersOnMap.length; i++) {
+        const marker = new google.maps.Marker({
+            position: markersOnMap[i].LatLng,
+            icon: markersOnMap[0].icon,
+            map: map,
+            title: markersOnMap[i].nome,
+            optimized: false
+        });
+        marker.addListener("click", () => {
+            createModal(marker);
+        });
+    }
+}
+
+const createModal = marker => {
+    const htmlModal = `
 <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
         <div class="modal-header">
@@ -156,80 +157,57 @@ const createModal = (marker) => {
             <button type="button" class="btn btn-primary">Escutar</button>
         </div>
     </div>
-</div>`
-    let modal = document.getElementById("exampleModal").innerHTML = htmlModal;
-    let bootstrapModal = new bootstrap.Modal(document.getElementById('exampleModal'));
+</div>`;
+    const modal = modalElement.innerHTML = htmlModal;
+    const bootstrapModal = new bootstrap.Modal(modalElement);
     bootstrapModal.show();
 }
 
-window.onload = function () {
-    initMap();
-};
-
-function addMarkerInfo() {
-    for (var i = 0; i < markersOnMap.length; i++) {
-        const marker = new google.maps.Marker({
-            position: markersOnMap[i].LatLng[0],
-            icon: markersOnMap[0].icon,
-            map: map,
-            title: markersOnMap[i].nome,
-            optimized: false
-        });
-        marker.addListener("click", () => {
-            createModal(marker);
-        });
-    }
-}
-
-let barraPesquisa = document.getElementById("pesquisa");
-barraPesquisa.addEventListener('keypress', function (e) {
-    if (e.key === 'Enter') {
-        let tempValor = document.getElementById("floatingInputValue").value;
+pesquisaElement.addEventListener('keypress', enter => {
+    if (enter.key === 'Enter') {
+        const valor = document.getElementById("floatingInputValue").value;
         for (let i = 0; i < markersOnMap.length; i++) {
-            if (markersOnMap[i].nome === tempValor) {
-                map = new google.maps.Map(document.getElementById("map"), {
+            if (markersOnMap[i].nome === valor) {
+                const mapOptions = {
                     zoom: 15,
-                    center: markersOnMap[i].LatLng[0],
-                });
-                addMarkerInfo();
+                    center: markersOnMap[i].LatLng,
+                }
+                const map = new google.maps.Map(mapElement, mapOptions);
+                addMarkerInfo(map);
             }
         }
     }
 })
 
-
-// LOCALIZAÇÃO ATUAL
-
-function currentLocation() {
-    x = navigator.geolocation;
-    x.getCurrentPosition(success, failure);
-    function success(position) {
-        let myLat = position.coords.latitude;
-        let myLong = position.coords.longitude;
-
-        let coords = new google.maps.LatLng(myLat, myLong);
-
-        let mapOptions = {
-            zoom: 14,
-            center: coords,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-        }
-
-        let map = new google.maps.Map(document.getElementById("map"), mapOptions);
-        let marker = new google.maps.Marker({ map: map, position: coords });
-        addMarkerInfo();
+const success = position => {
+    let myLat = position.coords.latitude;
+    let myLong = position.coords.longitude;
+    let coords = new google.maps.LatLng(myLat, myLong);
+    let mapOptions = {
+        zoom: 15,
+        center: coords,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
     }
-
-    function failure() { }
-};
-
-// FIM LOCALIZAÇÃO ATUAL
-
-function initMap() {
-    map = new google.maps.Map(document.getElementById("map"), {
-        zoom: 12,
-        center: centerCoords,
-    });
-    addMarkerInfo();
+    let map = new google.maps.Map(mapElement, mapOptions);
+    let marker = new google.maps.Marker({ map: map, position: coords });
+    addMarkerInfo(map);
 }
 
+const currentLocation = () => {
+    let x = navigator.geolocation;
+    x.getCurrentPosition(success);
+
+};
+
+const initMap = () => {
+    let mapOptions = {
+        zoom: 12,
+        center: centerCoords,
+    };
+    let map = new google.maps.Map(mapElement, mapOptions);
+    addMarkerInfo(map);
+}
+
+window.onload = () => {
+    initMap();
+};
