@@ -1,6 +1,23 @@
+// Mapa
 const mapElement = document.getElementById("map")
 const pesquisaElement = document.getElementById("pesquisa");
 const modalElement = document.getElementById("exampleModal")
+
+const baseURL = 'https://api.spotify.com/v1/';
+const searchURL = 'search?q=';
+const typeURL = '&type=show';
+const apikey = 'f58c9bc653334b2586490edc052081a5';
+
+/*https://api.spotify.com/v1/search?q=bob%20year:2014&type=album_
+Returns albums released in 2014 with their names or artist names containing “bob”.
+You can also use the tag:new field filter to get just these albums, as well as compilations and singles, released in the last 2 weeks.*/
+
+// Spotify
+// const spotify = import('./spotify-web-api.js');
+// const spotifyApi = new spotify();
+// const apikey = 'f58c9bc653334b2586490edc052081a5';
+// spotifyApi.setAccessToken(apikey);
+
 const centerCoords = {
     lat: -19.905328282366675,
     lng: -43.97587664589055
@@ -176,6 +193,7 @@ pesquisaElement.addEventListener('keypress', enter => {
                 addMarkerInfo(map);
             }
         }
+
     }
 })
 
