@@ -15,6 +15,14 @@
         integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Cantora+One&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
+    <script type="text/javascript">//O usuário está autentificado?
+
+        if(!sessionStorage.getItem('autenticacaoStatus')){
+            alert('Usuário não atentificado!');
+            window.location.replace('paginaLogin.html')
+        }
+            </script>
+    
 </head>
 
 <body>

@@ -6,6 +6,7 @@ botaoEntrar.addEventListener('click',()=>{
     
     for (let i=0;i<usuariosCadastrados.length;i++){
         if (usuario == usuariosCadastrados[i].emailUsuario && senha == usuariosCadastrados[i].senhaUsuario ){
+            sessionStorage.setItem("autenticacaoStatus", "Autentificado")
             return window.location.replace('paginaInterna.html')
         }        
     }   

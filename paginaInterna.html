@@ -15,6 +15,15 @@
     <script src="https://kit.fontawesome.com/2e1e05dd96.js" crossorigin="anonymous"></script>
 
     <link rel="stylesheet" href="estilosInterna.css">
+
+    <script type="text/javascript">//O usuário está autentificado?
+
+    if(!sessionStorage.getItem('autenticacaoStatus')){
+        alert('Usuário não atentificado!');
+        window.location.replace('paginaLogin.html')
+    }
+        </script>
+
 </head>
 
 <body class="d-flex flex-column min-vh-100">
