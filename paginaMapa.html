@@ -1,0 +1,91 @@
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa</title>
+
+    <!-- Script API Mapa -->
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+    <!-- FIM Script API Mapa -->
+
+    <link href="estilosLogin.css" rel="stylesheet">
+    <link href="paginaMapa.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/2e1e05dd96.js" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Cantora+One&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&amp;display=swap" rel="stylesheet">
+    <script type="text/javascript" charset="UTF-8"
+        src="https://maps.googleapis.com/maps-api-v3/api/js/45/3/intl/pt_br/common.js"></script>
+    <script type="text/javascript" charset="UTF-8"
+        src="https://maps.googleapis.com/maps-api-v3/api/js/45/3/intl/pt_br/util.js"></script>
+    <script type="text/javascript" charset="UTF-8"
+        src="https://maps.googleapis.com/maps/api/js/AuthenticationService.Authenticate?1sfile%3A%2F%2F%2Ftmp%2Fmozilla_jean0%2FpaginaMapa-1.html&amp;4sAIzaSyAoz6F8sLlo02ZAZxVwf2pwwFrTe_KMDTs&amp;callback=_xdc_._568ve8&amp;key=AIzaSyAoz6F8sLlo02ZAZxVwf2pwwFrTe_KMDTs&amp;token=16646"></script>
+</head>
+
+<body>
+    <div class="wrapper">
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top py-0 gradient1 shadow">
+            <div class="container-fluid max-size">
+                <a class="navbar-brand py-1 ms-0" href="paginaGeral.html">
+                    <img src="./img/logo2.png" class="element-shadow" alt="logo" width="52px" height="52px">
+                    <span class="navbar-logo-text font-cantora-one bold text-shadow">Podium</span>
+                </a>
+                <button class="navbar-toggler element-shadow border-0" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse font-noto-sans bold text-shadow" id="navbarSupportedContent">
+                    <ul class="navbar-nav ps-3">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="pagina1" href="paginaCadastro.html">Se
+                                cadastrar</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="pagina2" href="paginaLogin.html">Fazer
+                                login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="pagina3" href="paginaGeral.html">Sobre o
+                                Podium</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Mapa -->
+        <div class="map" id="map"></div>
+        <div class="form-mapa">
+            <form class="form-floating form-mapa-input box-shadow" id="pesquisa" onsubmit="return false">
+                <input type="text" class="form-control" id="floatingInputValue">
+                <label for="floatingInputValue">Procure um podcast <i class="fas fa-search"></i></label>
+            </form>
+            <div class="btn botao-localizacao" id="btn-current-location">
+                <button onclick="currentLocation()" type="button" class="btn btn-primary"><i
+                        class="fas fa-map-marked-alt"></i></button>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8"
+        crossorigin="anonymous"></script>
+
+    <script src="paginaMapa.js"></script>
+
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAoz6F8sLlo02ZAZxVwf2pwwFrTe_KMDTs&amp;callback=initMap&amp;libraries=&amp;v=weekly"
+        async=""></script>
+
+</body>
+
+</html>
