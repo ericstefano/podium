@@ -15,6 +15,7 @@
         integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Cantora+One&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
+
     <script type="text/javascript">//O usuário está autentificado?
 
         if(!sessionStorage.getItem('autenticacaoStatus')){
@@ -40,7 +41,7 @@
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse font-noto-sans bold text-shadow" id="navbarSupportedContent">
-                        <ul class="navbar-nav ps-3">
+                        <ul class="navbar-nav ps-3" id='ulMenu'>
                             <li class="nav-item">
                                 <a class="nav-link active" aria-current="pagina1" href="paginaCadastro.html">Se
                                     cadastrar</a>
@@ -84,6 +85,24 @@
     <script
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAoz6F8sLlo02ZAZxVwf2pwwFrTe_KMDTs&callback=initMap&libraries=&v=weekly"
         async></script>
+
+    <script>
+        function fazerLogout(){
+            sessionStorage.removeItem("autenticacaoStatus");
+            alert("Obrigado por usar o Podium!")
+            window.location.replace('paginaInterna.html')            
+        }
+        
+        if(sessionStorage.getItem('autenticacaoStatus')){
+            let li=document.createElement("li");
+            let ultimoLi=document.getElementById('ulMenu');
+            ultimoLi.append(li);    
+            li.classList.add('nav-link','active');
+            li.innerHTML=`<a class="nav-link active" onclick="fazerLogout()" aria-current="fazer log out" href="#">Logout <span style="font-style:italic">(${sessionStorage.getItem("nomeUsuario")})</span></a>`;                       
+        }
+    
+    </script>
+
 </body>
 
 </html>
