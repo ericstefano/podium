@@ -2,167 +2,103 @@
 const mapElement = document.getElementById("map")
 const pesquisaElement = document.getElementById("pesquisa");
 const modalElement = document.getElementById("exampleModal")
+
+// Coordenadas de Belo Horizonte, temporário
 const centerCoords = {
     lat: -19.905328282366675,
     lng: -43.97587664589055
 };
 
-const pegarApi = () => {
-    let client_id = "c59e630c38634d85bdb9fc946fd29489";
-    let client_secret = "0b90b7c6774544e9bbf3fd279c4e77e8";
-    let url = "https://accounts.spotify.com/authorize";
-    url += "?client_id=" + client_id;
-    url += "&response_type=code";
-    url += "&redirect_uri=" + encodeURI("http://127.0.0.1:5501/paginaMapa.html");
-    url += "&show_dialog=true";
-    window.location.href = url;
+// Spotify
+const spotifyApi = new SpotifyWebApi();
+const client_id = "c59e630c38634d85bdb9fc946fd29489"
+const client_secret = "0b90b7c6774544e9bbf3fd279c4e77e8";
+
+
+// Pegar Token de Requisição do Spotify
+// Está sendo feito direto com as credenciais acima do App Podium
+// Certamente não se faz assim e as IDs acima tinham que ficar escondidas (?)
+const getToken = async () => {
+    await fetch('https://accounts.spotify.com/api/token', {
+        method: 'POST',
+        headers: {
+            'Authorization': 'Basic ' + btoa(client_id + ":" + client_secret),
+            'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+        },
+        body: 'grant_type=client_credentials'
+    })
+        .then(response => response.json())
+        .then(data => {
+            spotifyApi.setAccessToken(data.access_token)
+        });
 }
 
-const spotifyApi = new SpotifyWebApi;
-const queryString = window.location.search;
-if (queryString.length > 0) {
-    const urlParams = new URLSearchParams(queryString);
-    let code = urlParams.get('code');
-    console.log(code)
-    spotifyApi.setAccessToken(code);
-} else {
-    pegarApi();
-}
-
-pesquisarPodcast = async query => {
+// Realiza a pesquisa do Podcast na API do Spotify
+const pesquisarPodcast = async query => {
     let podcast;
-    await spotifyApi.searchShows(query, {"market": "BR" }).then(
+    await spotifyApi.searchShows(query, { "market": "BR" }).then(
         obj => {
-            obj.shows.items.forEach((item => {
-                if (item.name.toLowerCase() == query.toLowerCase()) {
-                    podcast = JSON.parse(JSON.stringify(item))
-                }
-            }))
+            for (let item of obj.shows.items) {
+                // TODO: fazer validação/filtragem aqui
+                podcast = JSON.parse(JSON.stringify(item))
+                break;
+            }
         }
     )
     return podcast;
 }
 
-criarListaMarkers = async () => {
-    let markers = []
-    await pesquisarPodcast("Malignos Podcast").then(async (obj) => {
-        markers = [
-            {
-                LatLng: {
-                    lat: -19.85205145019345,
-                    lng: -43.97841751460232
-                },
-                title: obj.name,
-                icon: obj.images[2].url,
-                description: obj.description,
-                link: obj.external_urls.spotify
+// Realiza pesquisa "podcast" em um raio de 25 km na região de Belo Horizonte (centerCoords)
+const pesquisarPlaces = async map => {
+    let podcasts = []
+    const service = new google.maps.places.PlacesService(map);
 
-            },
-            {
-                LatLng: {
-                    lat: -19.87131996466008,
-                    lng: -43.984518954106576
-                },
-                nome: "BrainCast"
-            },
-            {
-                LatLng: {
-                    lat: -19.88187884554605,
-                    lng: -44.00085022825316
-                },
-                nome: "NerdCast"
-            },
-            {
-                LatLng: {
-                    lat: -19.9020347548531,
-                    lng: -44.005545469570286
-                },
-                nome: "NerdCast"
-            },
-            {
-                LatLng: {
-                    lat: -19.881686872173166,
-                    lng: -43.92490980347161
-                },
-                nome: "RapaduraCast"
-            },
-            {
-                LatLng: {
-                    lat: -19.888981696801125,
-                    lng: -43.924093239764275
-                },
-                nome: "Mundo Podcast"
-            },
-            {
-                LatLng: {
-                    lat: -19.896084229515576,
-                    lng: -43.957368210837906
-                },
-                nome: "Bom dia, Obvious"
-            },
-            {
-                LatLng: {
-                    lat: -19.918541492421443,
-                    lng: -43.93981209113035
-                },
-                nome: "Acenda a Sua Luz"
-            },
-            {
-                LatLng: {
-                    lat: -19.932743585147396,
-                    lng: -44.050048191619695
-                },
-                nome: "Zine Negócios"
-            },
-            {
-                LatLng: {
-                    lat: -19.942338871157848,
-                    lng: -44.03637074952194
-                },
-                nome: "Projetos Humanos"
-            },
-            {
-                LatLng: {
-                    lat: -19.959800795429427,
-                    lng: -43.96247173400872
-                },
-                nome: "Autoconsciente"
-            },
-            {
-                LatLng: {
-                    lat: -19.935622232151992,
-                    lng: -43.92980918571558
-                },
-                nome: "Nerdcast"
-            },
-            {
-                LatLng: {
-                    lat: -19.97188868792483,
-                    lng: -43.938383104642526
-                },
-                nom: "Autoconsciente"
-            },
-            {
-                LatLng: {
-                    lat: -19.851928188281764,
-                    lng: -43.953081251374435
-                },
-                nome: "Pretinho Básico"
-            },
-            {
-                LatLng: [{
-                    lat: -19.857304363800623,
-                    lng: -43.968595961813676
-                }],
-                nome: "Filhos da Grávida de Taubaté"
-            }
-        ];
+    let request = {
+        location: centerCoords,
+        radius: '25000',
+        query: 'podcast'
+    };
+
+    await service.textSearch(request, results => {
+        for (let pod of results) {
+            podcasts.push(pod.name);
+        }
     })
+    return podcasts
+}
+
+// Criar marcadores que serão adicionados ao mapa
+const criarListaMarkers = async (map) => {
+    // let podcasts = await pesquisarPlaces(map);
+    // console.log(podcasts)
+    let podcasts = ["flow podcast", "podcast gabriel gonçalves live", "podpah", "cometa", "nerdcast", "inteligência", "dacunha na escuta"]
+    let markers = []
+
+    let j = 0.002;
+    for (let pod of podcasts) {
+        await pesquisarPodcast(pod).then((obj) => {
+            if (obj !== undefined) {
+                markers.push({
+                    LatLng: {
+                        lat: -19.85205145019345 + j,
+                        lng: -43.97841751460232 + j
+                    },
+                    title: obj.name,
+                    icon: obj.images[2].url,
+                    description: obj.description,
+                    link: obj.external_urls.spotify
+                })
+            }
+        })
+        j += 0.002
+    }
     return markers;
 }
 
+
+// Adicionar os marcadores criados ao mapa
 const addMarkerInfo = async map => {
-    const markersOnMap = await criarListaMarkers()
+    const markersOnMap = await criarListaMarkers(map)
     markersOnMap.forEach(item => {
         const marker = new google.maps.Marker({
             position: item.LatLng,
@@ -179,6 +115,7 @@ const addMarkerInfo = async map => {
     })
 }
 
+// Criar o modal dos marcadores dos mapa
 const createModal = marker => {
     const htmlModal = `
 <div class="modal-dialog modal-dialog-centered">
@@ -207,6 +144,8 @@ const createModal = marker => {
     bootstrapModal.show();
 }
 
+
+// Pesquisa de Podcasts baseado nos marcadores disponíveis
 pesquisaElement.addEventListener('keypress', async enter => {
     const markersOnMap = await criarListaMarkers()
     if (enter.key === 'Enter') {
@@ -224,6 +163,9 @@ pesquisaElement.addEventListener('keypress', async enter => {
     }
 })
 
+
+// Localização atual do Usuário, possivelmente quebrado
+// Funciona só no Google Chrome
 const currentLocation = () => {
     let x = navigator.geolocation;
     const success = position => {
@@ -242,15 +184,20 @@ const currentLocation = () => {
     x.getCurrentPosition(success);
 };
 
-const initMap = async () => {
+const initMap = () => {
     let mapOptions = {
         zoom: 12,
         center: centerCoords,
     };
-    map = await new google.maps.Map(mapElement, mapOptions)
-    addMarkerInfo(map);
+    let map = new google.maps.Map(mapElement, mapOptions)
+    return map;
 }
 
+// Criar mapa e marcadores assincronamente
 window.onload = async () => {
-    await initMap();
+    let map = await initMap();
+    // Pegar Token OAUTH do Spotify, THEN criar marcadores no mapa criado.
+    await getToken().then(() => {
+        addMarkerInfo(map);
+    })
 };
