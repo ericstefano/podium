@@ -13,8 +13,5 @@ botaoEntrar.addEventListener('click', () => {
 
         }
     }
-
     alert('Dados Incorretos!');
-
-
 })
