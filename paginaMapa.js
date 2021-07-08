@@ -49,69 +49,65 @@ const pesquisarPodcast = async query => {
 }
 
 // Realiza pesquisa "podcast" em um raio de 25 km na região de Belo Horizonte (centerCoords)
-const pesquisarPlaces = async map => {
-    let podcasts = []
-    const service = new google.maps.places.PlacesService(map);
+// const pesquisarPlaces = async map => {
+// let podcasts = []
 
+// }
+
+// Criar marcadores que serão adicionados ao mapa
+const criarListaMarkers = async (map) => {
+    const service = new google.maps.places.PlacesService(map);
     let request = {
         location: centerCoords,
         radius: '25000',
         query: 'podcast'
     };
-
-    await service.textSearch(request, results => {
-        for (let pod of results) {
-            podcasts.push(pod.name);
-        }
-    })
-    return podcasts
-}
-
-// Criar marcadores que serão adicionados ao mapa
-const criarListaMarkers = async (map) => {
-    // let podcasts = await pesquisarPlaces(map);
-    // console.log(podcasts)
-    let podcasts = ["flow podcast", "podcast gabriel gonçalves live", "podpah", "cometa", "nerdcast", "inteligência", "dacunha na escuta"]
     let markers = []
-
-    let j = 0.002;
-    for (let pod of podcasts) {
-        await pesquisarPodcast(pod).then((obj) => {
-            if (obj !== undefined) {
-                markers.push({
-                    LatLng: {
-                        lat: -19.85205145019345 + j,
-                        lng: -43.97841751460232 + j
-                    },
-                    title: obj.name,
-                    icon: obj.images[2].url,
-                    description: obj.description,
-                    link: obj.external_urls.spotify
-                })
-            }
-        })
-        j += 0.002
-    }
+    await Promise.resolve(service.textSearch(request, async results => {
+        let j = 0.002;
+        for (let pod of results) {
+            // console.log(pod.name)
+            // console.log(pod.geometry.location)
+            await pesquisarPodcast(pod.name).then((obj) => {
+                if (obj !== undefined) {
+                    markers.push({
+                        LatLng: {
+                            lat: pod.geometry.location.lat(),
+                            lng: pod.geometry.location.lng()
+                        },
+                        title: obj.name,
+                        icon: obj.images[2].url,
+                        description: obj.description,
+                        link: obj.external_urls.spotify
+                    })
+                }
+            })
+            j += 0.002
+        }
+    }))
     return markers;
 }
 
 
 // Adicionar os marcadores criados ao mapa
 const addMarkerInfo = async map => {
-    const markersOnMap = await criarListaMarkers(map)
-    markersOnMap.forEach(item => {
-        const marker = new google.maps.Marker({
-            position: item.LatLng,
-            icon: item.icon,
-            title: item.title,
-            description: item.description,
-            link: item.link,
-            map: map,
-            optimized: false
-        });
-        marker.addListener("click", () => {
-            createModal(marker);
-        })
+    await criarListaMarkers(map).then(async (markersOnMap) => {
+        console.log(markersOnMap)
+        for (let item of markersOnMap) {
+            console.log(item)
+            const marker = new google.maps.Marker({
+                position: item.LatLng,
+                icon: item.icon,
+                title: item.title,
+                description: item.description,
+                link: item.link,
+                map: map,
+                optimized: false
+            });
+            marker.addListener("click", () => {
+                createModal(marker);
+            })
+        }
     })
 }
 
