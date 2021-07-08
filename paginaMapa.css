@@ -1,54 +1,28 @@
-html, body {
-    height: 100%;
-}
-
-ul, li, p {
-    margin: 0px;
-    padding: 0px;
-    list-style: none;
-}
-
-.wrapper {
-    height: 100%;
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 60px auto;
-}
-
-.navbar {
-    grid-row: 1/2;
-}
+/* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
 
 #map {
     height: 100%;
-    grid-row: 2/2;
+    width: 100%;
+    margin-top: -36px;
+}
+
+/* Optional: Makes the sample page fill the window. */
+
+html, body {
+    height: 96.9%;
+    margin: 0;
+    padding: 0;
 }
 
 .form-mapa {
-    display: flex;
-    place-self: center;
-    position: relative;
-    top: 160px;
+    display: grid;
+    place-items: center;
+    position: fixed;
+    z-index: 1030;
+    transform: translateY(+100%);
 }
 
 .form-mapa-input {
-    width: 60vw;
-}
-
-.modal-podcast {
-    display: flex;
-    align-items: center;
-}
-
-.modal-podcast img {
-    display: block;
-    max-width: 50px;
-    max-height: 50px;
-    margin-right: 10px;
-}
-
-.botao-localizacao {
-    position: relative;
-    display: flex;
-    place-self: center;
+    width: 85vw !important;
 }

@@ -1,203 +1,104 @@
-// Mapa
-const mapElement = document.getElementById("map")
-const pesquisaElement = document.getElementById("pesquisa");
-const modalElement = document.getElementById("exampleModal")
+let map;
 
-// Coordenadas de Belo Horizonte, temporário
-const centerCoords = {
-    lat: -19.905328282366675,
-    lng: -43.97587664589055
-};
-
-// Spotify
-const spotifyApi = new SpotifyWebApi();
-const client_id = "c59e630c38634d85bdb9fc946fd29489"
-const client_secret = "0b90b7c6774544e9bbf3fd279c4e77e8";
-
-
-// Pegar Token de Requisição do Spotify
-// Está sendo feito direto com as credenciais acima do App Podium
-// Certamente não se faz assim e as IDs acima tinham que ficar escondidas (?)
-const getToken = async () => {
-    await fetch('https://accounts.spotify.com/api/token', {
-        method: 'POST',
-        headers: {
-            'Authorization': 'Basic ' + btoa(client_id + ":" + client_secret),
-            'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
-        },
-        body: 'grant_type=client_credentials'
-    })
-        .then(response => response.json())
-        .then(data => {
-            spotifyApi.setAccessToken(data.access_token)
-        });
+function initMap() {
+    map = new google.maps.Map(document.getElementById("map"), {
+        center: { lat: -32, lng: 151.22879464019775 },
+        zoom: 18,
+    });
 }
+// LOCALIZAÇÃO ATUAL
+x = navigator.geolocation;
+x.getCurrentPosition(success, failure);
 
-// Realiza a pesquisa do Podcast na API do Spotify
-const pesquisarPodcast = async query => {
-    let podcast;
-    await spotifyApi.searchShows(query, { "market": "BR" }).then(
-        obj => {
-            for (let item of obj.shows.items) {
-                // TODO: fazer validação/filtragem aqui
-                podcast = JSON.parse(JSON.stringify(item))
-                break;
-            }
-        }
-    )
-    return podcast;
-}
+function success(position) {
+    var myLat = position.coords.latitude;
+    var myLong = position.coords.longitude;
 
-// Realiza pesquisa "podcast" em um raio de 25 km na região de Belo Horizonte (centerCoords)
-const pesquisarPlaces = async map => {
-    let podcasts = []
-    const service = new google.maps.places.PlacesService(map);
+    var coords = new google.maps.LatLng(myLat, myLong);
 
-    let request = {
-        location: centerCoords,
-        radius: '25000',
-        query: 'podcast'
-    };
-
-    await service.textSearch(request, results => {
-        for (let pod of results) {
-            podcasts.push(pod.name);
-        }
-    })
-    return podcasts
-}
-
-// Criar marcadores que serão adicionados ao mapa
-const criarListaMarkers = async (map) => {
-    // let podcasts = await pesquisarPlaces(map);
-    // console.log(podcasts)
-    let podcasts = ["flow podcast", "podcast gabriel gonçalves live", "podpah", "cometa", "nerdcast", "inteligência", "dacunha na escuta"]
-    let markers = []
-
-    let j = 0.002;
-    for (let pod of podcasts) {
-        await pesquisarPodcast(pod).then((obj) => {
-            if (obj !== undefined) {
-                markers.push({
-                    LatLng: {
-                        lat: -19.85205145019345 + j,
-                        lng: -43.97841751460232 + j
-                    },
-                    title: obj.name,
-                    icon: obj.images[2].url,
-                    description: obj.description,
-                    link: obj.external_urls.spotify
-                })
-            }
-        })
-        j += 0.002
-    }
-    return markers;
-}
-
-
-// Adicionar os marcadores criados ao mapa
-const addMarkerInfo = async map => {
-    const markersOnMap = await criarListaMarkers(map)
-    markersOnMap.forEach(item => {
-        const marker = new google.maps.Marker({
-            position: item.LatLng,
-            icon: item.icon,
-            title: item.title,
-            description: item.description,
-            link: item.link,
-            map: map,
-            optimized: false
-        });
-        marker.addListener("click", () => {
-            createModal(marker);
-        })
-    })
-}
-
-// Criar o modal dos marcadores dos mapa
-const createModal = marker => {
-    const htmlModal = `
-<div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-        <div class="modal-header">
-            <div class="modal-podcast">
-                <img
-                    src="${marker.icon}">
-                <h5 class="modal-title" id="exampleModalLabel">${marker.title}</h5>
-            </div>
-        </div>
-        <div class="modal-body">
-            <h5>Descrição</h5>
-            <p>${marker.description}</p>
-        </div>
-        <div class="modal-footer d-flex justify-content-start">
-            <div class="me-auto">
-                <p class="my-0">${marker.position}</p>
-            </div>
-            <a href=${marker.link} target="_blank"><button type="button" class="btn btn-primary">Escutar</button><a>
-        </div>
-    </div>
-</div>`;
-    modalElement.innerHTML = htmlModal;
-    const bootstrapModal = new bootstrap.Modal(modalElement);
-    bootstrapModal.show();
-}
-
-
-// Pesquisa de Podcasts baseado nos marcadores disponíveis
-pesquisaElement.addEventListener('keypress', async enter => {
-    const markersOnMap = await criarListaMarkers()
-    if (enter.key === 'Enter') {
-        const valor = document.getElementById("floatingInputValue").value;
-        markersOnMap.forEach(marcador => {
-            if (marcador.title.toLowerCase() === valor.toLowerCase()) {
-                const mapOptions = {
-                    zoom: 15,
-                    center: marcador.LatLng,
-                }
-                const map = new google.maps.Map(mapElement, mapOptions);
-                addMarkerInfo(map);
-            }
-        })
-    }
-})
-
-
-// Localização atual do Usuário, possivelmente quebrado
-// Funciona só no Google Chrome
-const currentLocation = () => {
-    let x = navigator.geolocation;
-    const success = position => {
-        let myLat = position.coords.latitude;
-        let myLong = position.coords.longitude;
-        let coords = new google.maps.LatLng(myLat, myLong);
-        let mapOptions = {
-            zoom: 15,
-            center: coords,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-        }
-        let map = new google.maps.Map(mapElement, mapOptions);
-        let marker = new google.maps.Marker({ map: map, position: coords });
-        addMarkerInfo(map);
-    }
-    x.getCurrentPosition(success);
-};
-
-const initMap = () => {
-    let mapOptions = {
+    var mapOptions = {
         zoom: 12,
-        center: centerCoords,
-    };
-    let map = new google.maps.Map(mapElement, mapOptions)
-    return map;
+        center: coords,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    }
+
+    var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+    var marker = new google.maps.Marker({ map: map, position: coords });
 }
 
-// Criar mapa e marcadores assincronamente
-window.onload = async () => {
-    let map = await initMap();
-    // Pegar Token OAUTH do Spotify, THEN criar marcadores no mapa criado.
-    await getToken().then(() => {
-        addMarkerInfo(map);
-    })
+function failure() { }
+// FIM LOCALIZAÇÃO ATUAL
+
+// MARCADOR CUSTOMIZADO
+// https://www.youtube.com/watch?v=Xptz0GQ2DO4&ab_channel=PradipDebnath
+
+// const iconBase = 'icons/';
+// const marker = new google.maps.Marker({
+//     position: myLatLng,
+//     map: map,
+//     icon: `${iconBase}baseline_local_parking_black_48dp.png`
+// })
+
+const iconBase =
+    "https://developers.google.com/maps/documentation/javascript/examples/full/images/";
+const icons = {
+    podcast: {
+        icon: iconBase + "/img/podcast1.jpg",
+    },
 };
+const features = [
+    {
+        position: new google.maps.LatLng(-33.91722, 151.23064),
+        type: "podcast",
+    },
+    {
+        position: new google.maps.LatLng(-33.91539, 151.2282),
+        type: "podcast",
+    },
+    {
+        position: new google.maps.LatLng(-33.91747, 151.22912),
+        type: "podcast",
+    },
+    {
+        position: new google.maps.LatLng(-33.9191, 151.22907),
+        type: "podcast",
+    },
+    {
+        position: new google.maps.LatLng(-33.91725, 151.23011),
+        type: "podcast",
+    },
+    {
+        position: new google.maps.LatLng(-33.91872, 151.23089),
+        type: "podcast",
+    },
+    {
+        position: new google.maps.LatLng(-33.91784, 151.23094),
+        type: "podcast",
+    },
+    {
+        position: new google.maps.LatLng(-33.91682, 151.23149),
+        type: "podcast",
+    },
+    {
+        position: new google.maps.LatLng(-33.9179, 151.23463),
+        type: "podcast",
+    },
+    {
+        position: new google.maps.LatLng(-33.91666, 151.23468),
+        type: "podcast",
+    },
+    {
+        position: new google.maps.LatLng(-33.916988, 151.23364),
+        type: "podcast",
+    },
+];
+
+// Create markers.
+for (let i = 0; i < features.length; i++) {
+    const marker = new google.maps.Marker({
+        position: features[i].position.LatLng = [0],
+        icon: icons[features[i].type].icon,
+        map: map,
+    });
+}
+
