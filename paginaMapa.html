@@ -25,12 +25,20 @@
         src="https://maps.googleapis.com/maps-api-v3/api/js/45/3/intl/pt_br/util.js"></script>
     <script type="text/javascript" charset="UTF-8"
         src="https://maps.googleapis.com/maps/api/js/AuthenticationService.Authenticate?1sfile%3A%2F%2F%2Ftmp%2Fmozilla_jean0%2FpaginaMapa-1.html&amp;4sAIzaSyAoz6F8sLlo02ZAZxVwf2pwwFrTe_KMDTs&amp;callback=_xdc_._568ve8&amp;key=AIzaSyAoz6F8sLlo02ZAZxVwf2pwwFrTe_KMDTs&amp;token=16646"></script>
+
+    <script type="text/javascript">//O usuário está autentificado?
+
+        if (!sessionStorage.getItem('autenticacaoStatus')) {
+            alert('Usuário não atentificado!');
+            window.location.replace('paginaLogin.html')
+        }
+    </script>
 </head>
 
 <body>
     <div class="wrapper">
         <nav class="navbar navbar-expand-lg navbar-dark fixed-top py-0 gradient1 shadow">
-            <div class="container-fluid max-size">
+            <div class="container-fluid" style="max-width: 900px;">
                 <a class="navbar-brand py-1 ms-0" href="paginaGeral.html">
                     <img src="./img/logo2.png" class="element-shadow" alt="logo" width="52px" height="52px">
                     <span class="navbar-logo-text font-cantora-one bold text-shadow">Podium</span>
@@ -41,7 +49,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse font-noto-sans bold text-shadow" id="navbarSupportedContent">
-                    <ul class="navbar-nav ps-3">
+                    <ul class="navbar-nav ps-3" id="ulMenu">
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="pagina1" href="paginaInterna.html">Principal</a>
                         </li>
@@ -62,7 +70,7 @@
         <div class="form-mapa">
             <form class="form-floating form-mapa-input box-shadow" id="pesquisa" onsubmit="return false">
                 <input type="text" class="form-control" id="floatingInputValue">
-                <label for="floatingInputValue">Procure um podcast <i class="fas fa-search"></i></label>
+                <label for="floatingInputValue">Procure uma localização <i class="fas fa-search"></i></label>
             </form>
             <div class="btn botao-localizacao" id="btn-current-location">
                 <button onclick="currentLocation()" type="button" class="btn btn-primary"><i
@@ -71,18 +79,34 @@
         </div>
     </div>
     <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8"
         crossorigin="anonymous"></script>
 
+    <script src="spotify-web-api.js"></script>
     <script src="paginaMapa.js"></script>
+    <script async
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAoz6F8sLlo02ZAZxVwf2pwwFrTe_KMDTs&libraries=places"></script>
+    <script>
+        function fazerLogout() {
+            sessionStorage.removeItem("autenticacaoStatus");
+            alert("Obrigado por usar o Podium!")
+            window.location.replace('paginaInterna.html')
+        }
 
-    <script
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAoz6F8sLlo02ZAZxVwf2pwwFrTe_KMDTs&amp;callback=initMap&amp;libraries=&amp;v=weekly"
-        async=""></script>
+        if (sessionStorage.getItem('autenticacaoStatus')) {
+            let li = document.createElement("li");
+            let ultimoLi = document.getElementById('ulMenu');
+            ultimoLi.append(li);
+            li.classList.add('nav-item', 'active');
+            li.innerHTML = `<a class="nav-link active" onclick="fazerLogout()" aria-current="fazer log out" href="#">Logout <span style="font-style:italic">(${sessionStorage.getItem("nomeUsuario")})</span></a>`;
+        }
+
+    </script>
+
 
 </body>
 

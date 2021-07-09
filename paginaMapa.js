@@ -1,152 +1,89 @@
 // Mapa
 const mapElement = document.getElementById("map")
 const pesquisaElement = document.getElementById("pesquisa");
-const modalElement = document.getElementById("exampleModal")
+const modalElement = document.getElementById("modal")
 
-const baseURL = 'https://api.spotify.com/v1/';
-const searchURL = 'search?q=';
-const typeURL = '&type=show';
-const apikey = 'f58c9bc653334b2586490edc052081a5';
-
-/*https://api.spotify.com/v1/search?q=bob%20year:2014&type=album_
-Returns albums released in 2014 with their names or artist names containing “bob”.
-You can also use the tag:new field filter to get just these albums, as well as compilations and singles, released in the last 2 weeks.*/
-
-// Spotify
-// const spotify = import('./spotify-web-api.js');
-// const spotifyApi = new spotify();
-// const apikey = 'f58c9bc653334b2586490edc052081a5';
-// spotifyApi.setAccessToken(apikey);
-
+// Coordenadas de Belo Horizonte, temporário
 const centerCoords = {
     lat: -19.905328282366675,
     lng: -43.97587664589055
 };
-const markersOnMap = [
-    {
-        LatLng: {
-            lat: -19.85205145019345,
-            lng: -43.97841751460232
-        },
-        nome: "Café Brasil",
-        icon: 'img/podcast-icon2.png'
 
-    },
-    {
-        LatLng: {
-            lat: -19.87131996466008,
-            lng: -43.984518954106576
-        },
-        nome: "BrainCast"
-    },
-    {
-        LatLng: {
-            lat: -19.88187884554605,
-            lng: -44.00085022825316
-        },
-        nome: "NerdCast"
-    },
-    {
-        LatLng: {
-            lat: -19.9020347548531,
-            lng: -44.005545469570286
-        },
-        nome: "NerdCast"
-    },
-    {
-        LatLng: {
-            lat: -19.881686872173166,
-            lng: -43.92490980347161
-        },
-        nome: "RapaduraCast"
-    },
-    {
-        LatLng: {
-            lat: -19.888981696801125,
-            lng: -43.924093239764275
-        },
-        nome: "Mundo Podcast"
-    },
-    {
-        LatLng: {
-            lat: -19.896084229515576,
-            lng: -43.957368210837906
-        },
-        nome: "Bom dia, Obvious"
-    },
-    {
-        LatLng: {
-            lat: -19.918541492421443,
-            lng: -43.93981209113035
-        },
-        nome: "Acenda a Sua Luz"
-    },
-    {
-        LatLng: {
-            lat: -19.932743585147396,
-            lng: -44.050048191619695
-        },
-        nome: "Zine Negócios"
-    },
-    {
-        LatLng: {
-            lat: -19.942338871157848,
-            lng: -44.03637074952194
-        },
-        nome: "Projetos Humanos"
-    },
-    {
-        LatLng: {
-            lat: -19.959800795429427,
-            lng: -43.96247173400872
-        },
-        nome: "Autoconsciente"
-    },
-    {
-        LatLng: {
-            lat: -19.935622232151992,
-            lng: -43.92980918571558
-        },
-        nome: "Nerdcast"
-    },
-    {
-        LatLng: {
-            lat: -19.97188868792483,
-            lng: -43.938383104642526
-        },
-        nom: "Autoconsciente"
-    },
-    {
-        LatLng: {
-            lat: -19.851928188281764,
-            lng: -43.953081251374435
-        },
-        nome: "Pretinho Básico"
-    },
-    {
-        LatLng: [{
-            lat: -19.857304363800623,
-            lng: -43.968595961813676
-        }],
-        nome: "Filhos da Grávida de Taubaté"
-    }
-];
+// Spotify
+const spotifyApi = new SpotifyWebApi();
+const client_id = "c59e630c38634d85bdb9fc946fd29489"
+const client_secret = "0b90b7c6774544e9bbf3fd279c4e77e8";
 
-const addMarkerInfo = map => {
-    for (let i = 0; i < markersOnMap.length; i++) {
-        const marker = new google.maps.Marker({
-            position: markersOnMap[i].LatLng,
-            icon: markersOnMap[0].icon,
-            map: map,
-            title: markersOnMap[i].nome,
-            optimized: false
+
+// Pegar Token de Requisição do Spotify
+// Está sendo feito direto com as credenciais acima do App Podium
+// Certamente não se faz assim e as IDs acima tinham que ficar escondidas (?)
+const getToken = async () => {
+    await fetch('https://accounts.spotify.com/api/token', {
+        method: 'POST',
+        headers: {
+            'Authorization': 'Basic ' + btoa(client_id + ":" + client_secret),
+            'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+        },
+        body: 'grant_type=client_credentials'
+    })
+        .then(response => response.json())
+        .then(data => {
+            spotifyApi.setAccessToken(data.access_token)
         });
-        marker.addListener("click", () => {
-            createModal(marker);
-        });
-    }
 }
 
+// Realiza a pesquisa do Podcast na API do Spotify
+const pesquisarPodcast = async query => {
+    let podcast;
+    await spotifyApi.searchShows(query, { "market": "BR" }).then(
+        obj => {
+            for (let item of obj.shows.items) {
+                // TODO: fazer validação/filtragem aqui
+                podcast = JSON.parse(JSON.stringify(item))
+                break;
+            }
+        }
+    )
+    return podcast;
+}
+
+
+// Adicionar os marcadores criados ao mapa
+const addMarkerInfo = async (map, coords) => {
+    const service = new google.maps.places.PlacesService(map);
+    let request = {
+        location: coords,
+        radius: '25000',
+        query: 'podcast'
+    };
+    await service.textSearch(request, async results => {
+        for (let pod of results) {
+            await pesquisarPodcast(pod.name).then((obj) => {
+                if (obj !== undefined) {
+                    const marker = new google.maps.Marker({
+                        position: {
+                            lat: pod.geometry.location.lat(),
+                            lng: pod.geometry.location.lng()
+                        },
+                        icon: obj.images[2].url,
+                        title: obj.name,
+                        description: obj.description,
+                        link: obj.external_urls.spotify,
+                        map: map,
+                        endereco: pod.formatted_address,
+                        optimized: false
+                    });
+                    marker.addListener("click", () => {
+                        createModal(marker);
+                    })
+                }
+            })
+        }
+    })
+}
+
+// Criar o modal dos marcadores dos mapa
 const createModal = marker => {
     const htmlModal = `
 <div class="modal-dialog modal-dialog-centered">
@@ -155,66 +92,71 @@ const createModal = marker => {
             <div class="modal-podcast">
                 <img
                     src="${marker.icon}">
-                <h5 class="modal-title" id="exampleModalLabel">Podcast ${marker.title}</h5>
+                <h5 class="modal-title" id="exampleModalLabel">${marker.title}</h5>
             </div>
         </div>
         <div class="modal-body">
             <h5>Descrição</h5>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates quos mollitia laborum
-                maxime
-                quibusdam, et voluptas similique modi voluptatum rerum nulla veniam culpa deleniti sequi
-                autem
-                aperiam doloribus. Enim, at.</p>
-
+            <p>${marker.description}</p>
         </div>
         <div class="modal-footer d-flex justify-content-start">
             <div class="me-auto">
-                <p class="my-0">${marker.position}</p>
+                <p class="my-0">${marker.endereco}</p>
             </div>
-            <button type="button" class="btn btn-primary">Escutar</button>
+            <a href=${marker.link} target="_blank"><button type="button" class="btn btn-primary">Escutar</button><a>
         </div>
     </div>
 </div>`;
-    const modal = modalElement.innerHTML = htmlModal;
+    modalElement.innerHTML = htmlModal;
     const bootstrapModal = new bootstrap.Modal(modalElement);
     bootstrapModal.show();
 }
 
-pesquisaElement.addEventListener('keypress', enter => {
+
+// Pesquisa de Podcasts baseado nos marcadores disponíveis
+pesquisaElement.addEventListener('keypress', async enter => {
     if (enter.key === 'Enter') {
-        const valor = document.getElementById("floatingInputValue").value;
-        for (let i = 0; i < markersOnMap.length; i++) {
-            if (markersOnMap[i].nome === valor) {
-                const mapOptions = {
+        let geocoder = new google.maps.Geocoder();
+        let address = document.getElementById('floatingInputValue').value;
+        geocoder.geocode({
+            'address': address
+        }, (results, status) => {
+            if (status == google.maps.GeocoderStatus.OK) {
+                let LatLng = {
+                    lat: results[0].geometry.location.lat(),
+                    lng: results[0].geometry.location.lng()
+                }
+                let mapOptions = {
                     zoom: 15,
-                    center: markersOnMap[i].LatLng,
+                    center: LatLng,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
                 }
                 const map = new google.maps.Map(mapElement, mapOptions);
-                addMarkerInfo(map);
+                addMarkerInfo(map, LatLng);
             }
-        }
-
+        });
     }
 })
 
-const success = position => {
-    let myLat = position.coords.latitude;
-    let myLong = position.coords.longitude;
-    let coords = new google.maps.LatLng(myLat, myLong);
-    let mapOptions = {
-        zoom: 15,
-        center: coords,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-    }
-    let map = new google.maps.Map(mapElement, mapOptions);
-    let marker = new google.maps.Marker({ map: map, position: coords });
-    addMarkerInfo(map);
-}
 
+// Localização atual do Usuário, possivelmente quebrado
+// Funciona só no Google Chrome
 const currentLocation = () => {
     let x = navigator.geolocation;
+    const success = position => {
+        let myLat = position.coords.latitude;
+        let myLong = position.coords.longitude;
+        let coords = new google.maps.LatLng(myLat, myLong);
+        let mapOptions = {
+            zoom: 15,
+            center: coords,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+        let map = new google.maps.Map(mapElement, mapOptions);
+        let marker = new google.maps.Marker({ map: map, position: coords });
+        addMarkerInfo(map, coords);
+    }
     x.getCurrentPosition(success);
-
 };
 
 const initMap = () => {
@@ -222,10 +164,15 @@ const initMap = () => {
         zoom: 12,
         center: centerCoords,
     };
-    let map = new google.maps.Map(mapElement, mapOptions);
-    addMarkerInfo(map);
+    let map = new google.maps.Map(mapElement, mapOptions)
+    return map;
 }
 
+// Criar mapa e marcadores assincronamente
 window.onload = () => {
-    initMap();
+    let map = initMap();
+    // Pegar Token OAUTH do Spotify, THEN criar marcadores no mapa criado.
+    getToken().then(() => {
+        addMarkerInfo(map, centerCoords);
+    })
 };

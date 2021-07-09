@@ -12,6 +12,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Cantora+One&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="estilosLogin.css">
+
+    <script type="text/javascript">//O usuário está autentificado?
+
+        if(sessionStorage.getItem('autenticacaoStatus')){            
+            window.location.replace('paginaInterna.html')
+        }
+            </script>
 </head>
 
 <body class="d-flex flex-column min-vh-100">
