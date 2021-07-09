@@ -1,7 +1,7 @@
 // Mapa
 const mapElement = document.getElementById("map")
 const pesquisaElement = document.getElementById("pesquisa");
-const modalElement = document.getElementById("exampleModal")
+const modalElement = document.getElementById("modal")
 
 // Coordenadas de Belo Horizonte, temporário
 const centerCoords = {
@@ -48,70 +48,38 @@ const pesquisarPodcast = async query => {
     return podcast;
 }
 
-// Realiza pesquisa "podcast" em um raio de 25 km na região de Belo Horizonte (centerCoords)
-const pesquisarPlaces = async map => {
-    let podcasts = []
-    const service = new google.maps.places.PlacesService(map);
 
+// Adicionar os marcadores criados ao mapa
+const addMarkerInfo = async (map, coords) => {
+    const service = new google.maps.places.PlacesService(map);
     let request = {
-        location: centerCoords,
+        location: coords,
         radius: '25000',
         query: 'podcast'
     };
-
-    await service.textSearch(request, results => {
+    await service.textSearch(request, async results => {
         for (let pod of results) {
-            podcasts.push(pod.name);
+            await pesquisarPodcast(pod.name).then((obj) => {
+                if (obj !== undefined) {
+                    const marker = new google.maps.Marker({
+                        position: {
+                            lat: pod.geometry.location.lat(),
+                            lng: pod.geometry.location.lng()
+                        },
+                        icon: obj.images[2].url,
+                        title: obj.name,
+                        description: obj.description,
+                        link: obj.external_urls.spotify,
+                        map: map,
+                        endereco: pod.formatted_address,
+                        optimized: false
+                    });
+                    marker.addListener("click", () => {
+                        createModal(marker);
+                    })
+                }
+            })
         }
-    })
-    return podcasts
-}
-
-// Criar marcadores que serão adicionados ao mapa
-const criarListaMarkers = async (map) => {
-    // let podcasts = await pesquisarPlaces(map);
-    // console.log(podcasts)
-    let podcasts = ["flow podcast", "podcast gabriel gonçalves live", "podpah", "cometa", "nerdcast", "inteligência", "dacunha na escuta"]
-    let markers = []
-
-    let j = 0.002;
-    for (let pod of podcasts) {
-        await pesquisarPodcast(pod).then((obj) => {
-            if (obj !== undefined) {
-                markers.push({
-                    LatLng: {
-                        lat: -19.85205145019345 + j,
-                        lng: -43.97841751460232 + j
-                    },
-                    title: obj.name,
-                    icon: obj.images[2].url,
-                    description: obj.description,
-                    link: obj.external_urls.spotify
-                })
-            }
-        })
-        j += 0.002
-    }
-    return markers;
-}
-
-
-// Adicionar os marcadores criados ao mapa
-const addMarkerInfo = async map => {
-    const markersOnMap = await criarListaMarkers(map)
-    markersOnMap.forEach(item => {
-        const marker = new google.maps.Marker({
-            position: item.LatLng,
-            icon: item.icon,
-            title: item.title,
-            description: item.description,
-            link: item.link,
-            map: map,
-            optimized: false
-        });
-        marker.addListener("click", () => {
-            createModal(marker);
-        })
     })
 }
 
@@ -133,7 +101,7 @@ const createModal = marker => {
         </div>
         <div class="modal-footer d-flex justify-content-start">
             <div class="me-auto">
-                <p class="my-0">${marker.position}</p>
+                <p class="my-0">${marker.endereco}</p>
             </div>
             <a href=${marker.link} target="_blank"><button type="button" class="btn btn-primary">Escutar</button><a>
         </div>
@@ -147,19 +115,26 @@ const createModal = marker => {
 
 // Pesquisa de Podcasts baseado nos marcadores disponíveis
 pesquisaElement.addEventListener('keypress', async enter => {
-    const markersOnMap = await criarListaMarkers()
     if (enter.key === 'Enter') {
-        const valor = document.getElementById("floatingInputValue").value;
-        markersOnMap.forEach(marcador => {
-            if (marcador.title.toLowerCase() === valor.toLowerCase()) {
-                const mapOptions = {
+        let geocoder = new google.maps.Geocoder();
+        let address = document.getElementById('floatingInputValue').value;
+        geocoder.geocode({
+            'address': address
+        }, (results, status) => {
+            if (status == google.maps.GeocoderStatus.OK) {
+                let LatLng = {
+                    lat: results[0].geometry.location.lat(),
+                    lng: results[0].geometry.location.lng()
+                }
+                let mapOptions = {
                     zoom: 15,
-                    center: marcador.LatLng,
+                    center: LatLng,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
                 }
                 const map = new google.maps.Map(mapElement, mapOptions);
-                addMarkerInfo(map);
+                addMarkerInfo(map, LatLng);
             }
-        })
+        });
     }
 })
 
@@ -179,7 +154,7 @@ const currentLocation = () => {
         }
         let map = new google.maps.Map(mapElement, mapOptions);
         let marker = new google.maps.Marker({ map: map, position: coords });
-        addMarkerInfo(map);
+        addMarkerInfo(map, coords);
     }
     x.getCurrentPosition(success);
 };
@@ -194,10 +169,10 @@ const initMap = () => {
 }
 
 // Criar mapa e marcadores assincronamente
-window.onload = async () => {
-    let map = await initMap();
+window.onload = () => {
+    let map = initMap();
     // Pegar Token OAUTH do Spotify, THEN criar marcadores no mapa criado.
-    await getToken().then(() => {
-        addMarkerInfo(map);
+    getToken().then(() => {
+        addMarkerInfo(map, centerCoords);
     })
 };
