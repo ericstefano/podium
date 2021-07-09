@@ -1,59 +1,24 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
 body {
     background-color: #00ffdf;
     font-family: 'Noto Sans', sans-serif;
     color: white;
 }
 
-#main {
-    padding-top: 80px;
-    padding-bottom: 80px;
-}
-
 #carouselArea {
     display: flex;
-}
-
-/* #img {
-    max-width: 300px;
-    max-height: 300px;
-    float: right;
-}*/
-
-footer {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    color: white;
-    text-align: center;
-}
-
-#FooterContent {
-    padding: 10px;
 }
 
 .btn {
     font-size: 1.2rem;
     padding-left: 20px;
 }
-
-/* NAVBAR */
-
-.navbar-logo-text {
-    display: inline-block;
-    vertical-align: middle;
-    font-size: 25px;
-}
-
-.navbar-toggler-icon {
-    background-image: url(./img/burger-icon.png) !important;
-}
-
-.navbar-toggler:focus, .navbar-toggler:active, .navbar-toggler-icon:focus {
-    box-shadow: none;
-}
-
-/* FIM: NAVBAR */
 
 /* GRADIENTE HEADER E FOOTER */
 
@@ -99,6 +64,171 @@ footer {
     font-weight: bold;
 }
 
-footer {
-    height: 3.5em;
+#main {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+@media screen and (min-width: 300px) and (max-width: 760px) {
+    #main {
+        padding-top: 10px;
+        padding-left: 85px;
+        padding-bottom: 20px;
+    }
+}
+
+@media screen and (min-width: 760px) and (max-width: 1024px) {
+    #main {
+        padding-top: 20px;
+        padding-left: 85px;
+        padding-bottom: 20px;
+    }
+}
+
+/**************************** MENU MOBILE ****************************/
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+.nav_list {
+    padding: 0;
+    margin: 0;
+}
+
+::selection {
+    color: #fff;
+    background: #11101d;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 72px;
+    background: #00D1D5;
+    padding: 6px 14px;
+    z-index: 99;
+    transition: all 0.5s ease;
+}
+
+.sidebar.active {
+    width: 240px
+}
+
+.sidebar .logo_content .logo {
+    color: #fff;
+    display: flex;
+    height: 50px;
+    width: 100%;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.5s ease;
+}
+
+.sidebar.active .logo_content .logo {
+    opacity: 1;
+    pointer-events: none;
+}
+
+.logo_content .logo i {
+    font-size: 28px;
+    margin-right: 5px;
+}
+
+.sidebar #btn {
+    position: absolute;
+    color: #fff;
+    top: 6px;
+    left: 50%;
+    font-size: 22px;
+    height: 50px;
+    width: 50px;
+    text-align: center;
+    line-height: 50px;
+    transform: translateX(-50%);
+}
+
+.sidebar.active #btn {
+    left: 90%;
+}
+
+.sidebar ul {
+    margin-top: 20px;
+}
+
+.sidebar ul li {
+    position: relative;
+    height: 50px;
+    width: 100%;
+    margin: 0 5px;
+    list-style: none;
+    line-height: 50px;
+    margin: 5px 0;
+}
+
+.sidebar ul li input {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    border-radius: 12px;
+    outline: none;
+    border: none;
+    background: #1d1b31;
+    padding-left: 50px;
+    font-size: 18px;
+    color: #fff;
+}
+
+.sidebar ul li .bx-search {
+    position: absolute;
+    z-index: 99;
+    color: #fff;
+    font-size: 22px;
+    transition: all 0.5 ease;
+}
+
+.sidebar ul li .bx-search:hover {
+    background: #fff;
+    color: #1d1b31;
+}
+
+.sidebar ul li a {
+    color: #fff;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    border-radius: 12px;
+    white-space: nowrap;
+    transition: all 0.4s ease;
+}
+
+.sidebar ul li a:hover {
+    color: #11101d;
+    background: #fff;
+}
+
+.sidebar ul li i {
+    font-size: 18px;
+    font-weight: 400;
+    height: 50px;
+    min-width: 50px;
+    border-radius: 12px;
+    line-height: 50px;
+    text-align: center;
+}
+
+.sidebar .links_name {
+    font-size: 15px;
+    font-weight: 550;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+.sidebar.active .links_name {
+    transition: 0s;
+    opacity: 1;
+    pointer-events: auto
 }
