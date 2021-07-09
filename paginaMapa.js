@@ -170,9 +170,10 @@ const initMap = () => {
 
 // Criar mapa e marcadores assincronamente
 window.onload = () => {
-    let map = initMap();
+
     // Pegar Token OAUTH do Spotify, THEN criar marcadores no mapa criado.
     getToken().then(() => {
+        let map = initMap();
         addMarkerInfo(map, centerCoords);
     })
 };
